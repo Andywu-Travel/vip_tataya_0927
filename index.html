@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>立山黑部阿爾卑斯路線 · 橫越隨身導覽</title>
+  <title>旭正聯合會計師立山黑部阿爾卑斯深度人文地質隨身導覽</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome CDN -->
@@ -23,7 +23,8 @@
             },
             autumn: {
               400: '#fb923c',
-              500: '#f97316'
+              500: '#f97316',
+              600: '#ea580c'
             }
           }
         }
@@ -34,7 +35,7 @@
     .highlight-card {
       box-shadow: 0 0 25px rgba(14, 165, 233, 0.6) !important;
       border-color: #38bdf8 !important;
-      transform: scale(1.02);
+      transform: scale(1.015);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -43,18 +44,18 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased flex justify-center selection:bg-cyan-500 selection:text-white">
 
-  <!-- 手機邊界主容器 -->
+  <!-- 手機外框主容器 -->
   <div class="w-full max-w-md bg-[#0b1120] min-h-screen flex flex-col relative shadow-2xl border-x border-slate-800 pb-28">
 
     <!-- 頂部 Header -->
     <header class="sticky top-0 z-40 bg-[#0b1120]/95 backdrop-blur-md border-b border-slate-800/80 px-4 py-3">
       <div class="flex items-center justify-between">
-        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-[11px] text-emerald-300 font-medium">
+        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-500/40 text-[11px] text-emerald-300 font-medium">
           <i class="fa-solid fa-arrow-trend-up text-[10px]"></i>
-          <span>富山側入山 · 阿爾卑斯東行線</span>
+          <span>富山側入山 · 阿爾卑斯東行</span>
         </div>
-        <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-500/40 font-medium">
-          <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> 全程橫越
+        <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-cyan-950/70 text-cyan-300 border border-cyan-500/40 font-medium">
+          深度地質歷史版
         </span>
       </div>
 
@@ -65,7 +66,7 @@
           </h1>
           <div class="text-[11px] text-slate-400 mt-0.5 flex items-center gap-1.5">
             <i class="fa-solid fa-route text-autumn-400"></i>
-            <span>立山站 ➔ 扇澤站 · 富山出發橫越長野</span>
+            <span>立山站 ➔ 扇澤站 · 世紀史詩全線橫越</span>
           </div>
         </div>
         <button id="btnOverviewSpeech" onclick="toggleOverviewSpeech()" class="w-11 h-11 rounded-2xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white flex flex-col items-center justify-center transition shadow-lg">
@@ -78,18 +79,18 @@
       <div class="mt-2.5 bg-slate-900/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm border border-cyan-500/30">
-            <i class="fa-solid fa-cloud-sun"></i>
+            <i class="fa-solid fa-mountain-sun"></i>
           </div>
           <div>
-            <div class="text-[10px] text-slate-400">目前檢視：全線最高點 · 室堂</div>
-            <div id="statTemp" class="text-xs font-bold text-white tracking-wide">約 8°C~9°C <span class="text-[10px] font-normal text-slate-400">| 高山低溫風大</span></div>
+            <div class="text-[10px] text-slate-400">當前焦點：全線最高點 · 室堂平</div>
+            <div id="statTemp" class="text-xs font-bold text-white tracking-wide">約 8°C ~ 9°C <span class="text-[10px] font-normal text-slate-400">| 高山強風與低壓</span></div>
           </div>
         </div>
         <div class="text-right">
           <span id="statWear" class="text-[11px] font-semibold text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/30 flex items-center gap-1">
-            <i class="fa-solid fa-shirt"></i> 防風保暖夾克
+            <i class="fa-solid fa-vest"></i> 洋蔥式防風必備
           </span>
-          <div class="text-[9px] text-slate-400 mt-0.5">全線溫差達 12°C 以上</div>
+          <div class="text-[9px] text-slate-400 mt-0.5">最大垂直高差 1,975m</div>
         </div>
       </div>
     </header>
@@ -101,9 +102,9 @@
       <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 shadow-md">
         <div class="flex items-center justify-between mb-2">
           <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <i class="fa-solid fa-chart-line text-cyan-400"></i> 海拔落差軌跡（點擊可同步卡片）
+            <i class="fa-solid fa-chart-line text-cyan-400"></i> 海拔落差軌跡（點選可同步聚焦）
           </div>
-          <div class="text-[10px] font-mono text-autumn-400">爬升 +1,975m ➔ 下降</div>
+          <div class="text-[10px] font-mono text-autumn-400">垂直爬升 ➔ 斷崖滑降</div>
         </div>
         
         <div class="flex items-center justify-between gap-1 overflow-x-auto no-scrollbar py-1">
@@ -131,7 +132,7 @@
 
         <div class="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
           <span class="flex items-center gap-1 text-amber-400">
-            <i class="fa-solid fa-triangle-exclamation"></i> 高山低壓低氧，抵達室堂請放緩步調
+            <i class="fa-solid fa-mountain"></i> 橫越後立山連峰斷層破碎帶
           </span>
           <span>富山起登 ➔ 長野落點</span>
         </div>
@@ -168,16 +169,16 @@
         </div>
       </section>
 
-      <!-- 橫越節點推進清單（完全靜態 DOM，保證必顯示） -->
+      <!-- 橫越節點推進清單（深度人文地質版・DOM 完全固化） -->
       <section class="mt-4">
         <div class="flex items-center justify-between mb-3 px-1">
           <h2 class="text-xs font-bold text-slate-300 tracking-wider flex items-center gap-1.5">
-            <i class="fa-solid fa-diagram-project text-cyan-400"></i> 橫越節點推進（無寫死時間點・標註乘車歷時）
+            <i class="fa-solid fa-layer-group text-cyan-400"></i> 深度橫越節點（無寫死時間點・標註乘車歷時）
           </h2>
-          <span class="text-[10px] text-slate-400">5 大樞紐站</span>
+          <span class="text-[10px] text-slate-400">5 大史詩樞紐</span>
         </div>
 
-        <!-- 卡片清單容器 -->
+        <!-- 卡片清單垂直軌道容器 -->
         <div id="timelineContainer" class="relative space-y-4 pl-4 before:content-[''] before:absolute before:left-[17px] before:top-4 before:bottom-4 before:w-0.5 before:bg-slate-700/80">
 
           <!-- 節點 1：立山站 -->
@@ -193,27 +194,34 @@
                     <h3 class="text-sm font-bold text-white">立山站 (Tateyama Sta.)</h3>
                     <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">475m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">富山側門戶 · 登山鐵道起點</div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">富山側門戶 · 傾斜鐵道與水電資材起點</div>
                 </div>
                 <i class="fa-solid fa-train text-slate-500 text-sm"></i>
               </div>
 
+              <!-- 深度看點標籤 -->
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] px-2 py-0.5 rounded bg-sky-950/80 text-sky-300 border border-sky-600/30">#28.7度最大坡度</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-sky-950/80 text-sky-300 border border-sky-600/30">#植被垂直演替</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-sky-950/80 text-sky-300 border border-sky-600/30">#立山玉殿湧水</span>
+              </div>
+
               <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
                 <span class="text-slate-300 flex items-center gap-1.5">
-                  <i class="fa-solid fa-cable-car text-amber-400"></i> 立山登山纜車
+                  <i class="fa-solid fa-cable-car text-amber-400"></i> 立山登山纜車 (Cable Car)
                 </span>
                 <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 7 分鐘</span>
               </div>
 
               <p class="text-xs text-slate-300 leading-relaxed mt-2">
-                搭乘高傾斜度地面纜車直攀美女平，沿途欣賞富山平原漸次沒入山林。
+                搭乘最大傾斜度達 28.7 度的斜面地面鐵道，7 分鐘內垂直爬升 502 公尺。窗外可觀察闊葉林漸次轉為高山針葉林，為橫越阿爾卑斯正式拉開帷幕。
               </p>
 
               <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
-                <button onclick="openSpotModal(0)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
-                  <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
+                <button onclick="openSpotModal(0)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-book-open text-cyan-400"></i> 深度歷史地質剖析
                 </button>
-                <button onclick="playSingleSpotSpeech(0)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
+                <button onclick="playSingleSpotSpeech(0)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5 transition">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -233,67 +241,81 @@
                     <h3 class="text-sm font-bold text-white">美女平 ➔ 彌陀原</h3>
                     <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">977m ~ 1,930m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">原生巨木林 · 高原濕原生態</div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">千年山毛櫸巨木林 · 世界級拉姆薩高山濕原</div>
                 </div>
                 <i class="fa-solid fa-tree text-slate-500 text-sm"></i>
               </div>
 
+              <!-- 深度看點標籤 -->
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-600/30">#拉姆薩公約濕地</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-600/30">#餓鬼田火山水窪</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-600/30">#稱名瀑布350m落差</span>
+              </div>
+
               <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
                 <span class="text-slate-300 flex items-center gap-1.5">
-                  <i class="fa-solid fa-bus text-cyan-400"></i> 立山高原巴士
+                  <i class="fa-solid fa-bus text-cyan-400"></i> 立山高原巴士 (Highland Bus)
                 </span>
                 <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 50 分鐘</span>
               </div>
 
               <p class="text-xs text-slate-300 leading-relaxed mt-2">
-                穿越千年生態山毛櫸林與彌陀原高原濕地，秋季可遠眺稱名瀑布與金黃草紅葉。
+                巴士沿著蜿蜒山道爬升近千公尺，穿行於樹齡上千年的立山杉原生巨木群，隨後迎向廣袤的彌陀原高原濕地與金黃秋季草紅葉。
               </p>
 
               <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
-                <button onclick="openSpotModal(1)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
-                  <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
+                <button onclick="openSpotModal(1)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-book-open text-cyan-400"></i> 深度歷史地質剖析
                 </button>
-                <button onclick="playSingleSpotSpeech(1)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
+                <button onclick="playSingleSpotSpeech(1)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5 transition">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- 節點 3：室堂頂點 -->
+          <!-- 節點 3：室堂頂點 (核心亮點) -->
           <div id="spotCard-2" class="relative pl-6 transition-all duration-300">
             <div class="absolute left-0 top-3 -translate-x-1/2 w-7 h-7 rounded-full bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center ring-4 ring-[#0b1120] shadow-md">
               3
             </div>
 
-            <div class="bg-slate-900/90 border-2 border-amber-500/80 rounded-2xl p-4 shadow-xl transition-all">
+            <div class="bg-gradient-to-b from-slate-900/95 to-amber-950/20 border-2 border-amber-500/80 rounded-2xl p-4 shadow-xl transition-all">
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center gap-2">
-                    <h3 class="text-sm font-black text-amber-300">室堂頂點 (Murodo)</h3>
+                    <h3 class="text-sm font-black text-amber-300">室堂平頂點 (Murodo)</h3>
                     <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">2,450m</span>
                   </div>
-                  <div class="text-[11px] text-amber-400 font-semibold mt-0.5">全線最高峰 · 火山湖與雷鳥</div>
+                  <div class="text-[11px] text-amber-400 font-semibold mt-0.5">全線最高樞紐 · 火山湖、冰河孑遺與雷鳥聖地</div>
                 </div>
                 <i class="fa-solid fa-crown text-amber-400 text-sm"></i>
               </div>
 
+              <!-- 深度看點標籤 -->
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/40">#御庫裏池火山倒影</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/40">#國寶雷鳥秋季換羽</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/40">#地獄谷火山地熱</span>
+              </div>
+
               <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-amber-500/30 flex items-center justify-between text-xs">
                 <span class="text-slate-200 flex items-center gap-1.5">
-                  <i class="fa-solid fa-bus-simple text-amber-400"></i> 立山隧道無軌電車
+                  <i class="fa-solid fa-bus-simple text-amber-400"></i> 立山隧道無軌電車 (Tunnel Trolley)
                 </span>
                 <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 10 分鐘</span>
               </div>
 
               <p class="text-xs text-slate-200 leading-relaxed mt-2 font-medium">
-                路線最高樞紐！漫步御庫裏池步道，欣賞高山湖泊倒影，尋找野生雷鳥足跡。
+                座落於萬年熔岩台地之上，漫步御庫裏池欣賞立山三山倒影，探尋自冰河時期留存至今的高山雷鳥，感受極限高山自然能量。
               </p>
 
               <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
-                <button onclick="openSpotModal(2)" class="px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-xs text-amber-300 border border-amber-500/40 flex items-center gap-1.5">
-                  <i class="fa-solid fa-circle-info text-amber-300"></i> 站點全解說
+                <button onclick="openSpotModal(2)" class="px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-xs text-amber-300 border border-amber-500/40 flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-book-open text-amber-300"></i> 深度歷史地質剖析
                 </button>
-                <button onclick="playSingleSpotSpeech(2)" class="px-3 py-1 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-400 text-xs font-bold flex items-center gap-1.5">
+                <button onclick="playSingleSpotSpeech(2)" class="px-3 py-1 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-400 text-xs font-bold flex items-center gap-1.5 transition">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -313,9 +335,16 @@
                     <h3 class="text-sm font-bold text-white">大觀峰 ➔ 黑部平</h3>
                     <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">2,316m ➔ 1,828m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">空中全景展望 · 斷崖索道</div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">無支柱單跨索道 · 斷崖空中移動展望台</div>
                 </div>
                 <i class="fa-solid fa-cable-car text-slate-500 text-sm"></i>
+              </div>
+
+              <!-- 深度看點標籤 -->
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-600/30">#全日本最長無支柱索道</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-600/30">#黑部峽谷全景俯瞰</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-600/30">#全地下防雪崩斜面纜車</span>
               </div>
 
               <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
@@ -326,14 +355,14 @@
               </div>
 
               <p class="text-xs text-slate-300 leading-relaxed mt-2">
-                搭乘全日本最長無支柱空中纜車如大鷲般俯瞰黑部峽谷，再轉乘地下登山纜車陡降至黑部平。
+                為防止雪崩並維護生態景觀，長達 1.7 公里的空中纜車未設立任何地面支柱。如高山大鷲般在空中俯瞰翡翠綠的黑部湖與峽谷屏風絕壁。
               </p>
 
               <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
-                <button onclick="openSpotModal(3)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
-                  <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
+                <button onclick="openSpotModal(3)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-book-open text-cyan-400"></i> 深度歷史地質剖析
                 </button>
-                <button onclick="playSingleSpotSpeech(3)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
+                <button onclick="playSingleSpotSpeech(3)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5 transition">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -353,27 +382,34 @@
                     <h3 class="text-sm font-bold text-white">黑部水壩 ➔ 扇澤站</h3>
                     <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">1,470m ➔ 1,433m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">世紀水庫工程 · 長野側終點</div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">世紀水電史詩工程 · 貫通後立山斷層破碎帶</div>
                 </div>
                 <i class="fa-solid fa-water text-slate-500 text-sm"></i>
               </div>
 
+              <!-- 深度看點標籤 -->
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-950/80 text-blue-300 border border-blue-600/30">#日本第一高186m大壩</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-950/80 text-blue-300 border border-blue-600/30">#黑部的太陽殉職171人</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-blue-950/80 text-blue-300 border border-blue-600/30">#每秒10噸觀光洩洪</span>
+              </div>
+
               <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
                 <span class="text-slate-300 flex items-center gap-1.5">
-                  <i class="fa-solid fa-bus text-emerald-400"></i> 關電隧道電氣巴士
+                  <i class="fa-solid fa-bus text-emerald-400"></i> 關電隧道電氣巴士 (EV Bus)
                 </span>
                 <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 16 分鐘</span>
               </div>
 
               <p class="text-xs text-slate-300 leading-relaxed mt-2">
-                步行橫跨黑部水壩堤頂感受每秒十餘噸的壯觀洩洪，隨後搭乘電氣巴士穿透破碎帶抵達扇澤。
+                步行橫跨日本第一高拱形水壩頂部，感受震撼心魄的水霧洩洪。隨後搭乘零排放電氣巴士穿透曾湧出致命低溫地下水的斷層破碎帶，抵達長野端扇澤。
               </p>
 
               <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
-                <button onclick="openSpotModal(4)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
-                  <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
+                <button onclick="openSpotModal(4)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-book-open text-cyan-400"></i> 深度歷史地質剖析
                 </button>
-                <button onclick="playSingleSpotSpeech(4)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
+                <button onclick="playSingleSpotSpeech(4)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5 transition">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -385,77 +421,92 @@
 
     </main>
 
-    <!-- Modal 彈窗 -->
-    <div id="spotModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-      <div class="bg-slate-900 border border-slate-700 rounded-t-3xl sm:rounded-2xl max-w-md w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
-        <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-800/50">
+    <!-- 深度內容 Modal 彈窗（嚴格分層：歷史工程 / 視覺看點 / 安全守則） -->
+    <div id="spotModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div class="bg-slate-900 border border-slate-700 rounded-t-3xl sm:rounded-2xl max-w-md w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
+        
+        <!-- Modal 頂部列 -->
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-800/60">
           <div>
-            <span id="modalSpotBadge" class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">節點詳情</span>
+            <span id="modalSpotBadge" class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-mono">NODE DEPTH PROFILE</span>
             <h3 id="modalSpotTitle" class="text-base font-bold text-white mt-1">站點名稱</h3>
           </div>
-          <button onclick="closeSpotModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+          <button onclick="closeSpotModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div class="p-5 overflow-y-auto space-y-3.5 text-xs text-slate-300">
-          <div>
-            <h4 class="text-cyan-400 font-bold mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-compass"></i> 地理與海拔
-            </h4>
-            <p id="modalSpotAlt" class="bg-slate-800/80 p-2.5 rounded-xl font-mono text-slate-200"></p>
+        <!-- Modal 滾動解說內容 -->
+        <div class="p-5 overflow-y-auto space-y-4 text-xs text-slate-300">
+          
+          <!-- 基礎數據 -->
+          <div class="grid grid-cols-2 gap-2 bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+            <div>
+              <span class="text-[10px] text-slate-400 block">海拔與預估溫度</span>
+              <span id="modalSpotAlt" class="font-bold text-slate-200 mt-0.5 block font-mono"></span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 block">轉乘載具與耗時</span>
+              <span id="modalSpotVehicle" class="font-bold text-cyan-300 mt-0.5 block"></span>
+            </div>
           </div>
 
-          <div>
-            <h4 class="text-cyan-400 font-bold mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-van-shuttle"></i> 乘車歷時與載具
+          <!-- 區塊 1：地質與工程深度剖析 -->
+          <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700/80">
+            <h4 class="text-cyan-400 font-bold mb-1.5 flex items-center gap-1.5 text-xs">
+              <i class="fa-solid fa-landmark"></i> 📌 地質與工程深度剖析
             </h4>
-            <p id="modalSpotVehicle" class="bg-slate-800/80 p-2.5 rounded-xl text-slate-200"></p>
+            <p id="modalSpotHistory" class="leading-relaxed text-slate-200"></p>
           </div>
 
-          <div>
-            <h4 class="text-cyan-400 font-bold mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-star"></i> 深度核心特色
+          <!-- 區塊 2：本站必看視覺亮點 -->
+          <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700/80">
+            <h4 class="text-amber-400 font-bold mb-1.5 flex items-center gap-1.5 text-xs">
+              <i class="fa-solid fa-binoculars"></i> 🔍 本站必看視覺亮點
             </h4>
-            <p id="modalSpotDesc" class="leading-relaxed bg-slate-800/80 p-2.5 rounded-xl text-slate-200"></p>
+            <p id="modalSpotHighlights" class="leading-relaxed text-slate-200"></p>
           </div>
 
-          <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl">
-            <h4 class="text-amber-400 font-bold mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-triangle-exclamation"></i> 隨身安全與行前提醒
+          <!-- 區塊 3：高山安全與轉乘守則 -->
+          <div class="bg-amber-500/10 border border-amber-500/40 p-3.5 rounded-xl">
+            <h4 class="text-amber-300 font-bold mb-1.5 flex items-center gap-1.5 text-xs">
+              <i class="fa-solid fa-shield-halved"></i> ⚠️ 高山安全與行前守則
             </h4>
-            <p id="modalSpotNotice" class="text-amber-200/90 leading-relaxed"></p>
+            <p id="modalSpotNotice" class="text-amber-200/95 leading-relaxed"></p>
           </div>
         </div>
 
-        <div class="p-4 border-t border-slate-800 bg-slate-900/90">
-          <button onclick="playModalCurrentSpeech()" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-2">
-            <i class="fa-solid fa-volume-high"></i> 播放本站語音解說
+        <!-- Modal 底部語音朗讀調用 -->
+        <div class="p-3.5 border-t border-slate-800 bg-slate-900 flex gap-2">
+          <button id="modalSpeechBtn" onclick="playModalCurrentSpeech()" class="flex-1 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow">
+            <i class="fa-solid fa-volume-high"></i> 播放本站深度語音導覽
           </button>
         </div>
+
       </div>
     </div>
 
-    <!-- 底部常駐播放控制列 -->
+    <!-- 底部固定常駐控制列 -->
     <footer class="fixed bottom-0 max-w-md w-full bg-[#0b1120]/95 backdrop-blur-md border-t border-slate-800 px-4 py-2.5 flex items-center justify-between text-xs z-30">
       <div class="flex items-center gap-2.5">
         <div class="w-7 h-7 rounded-lg bg-cyan-600/20 text-cyan-400 flex items-center justify-center text-xs border border-cyan-500/30">
-          <i class="fa-solid fa-volume-high"></i>
+          <i class="fa-solid fa-mountain"></i>
         </div>
         <div>
-          <div class="text-slate-200 font-bold text-[11px]">立山黑部 AI 隨身橫越導航</div>
-          <div class="text-[9px] text-slate-400">點擊站點或全覽按鈕聆聽語音解說</div>
+          <div class="text-slate-200 font-bold text-[11px]">立山黑部 AI 人文隨身隨行導覽</div>
+          <div class="text-[9px] text-slate-400">點擊「全覽」或各站「語音導覽」聆聽精華解說</div>
         </div>
       </div>
-      <button onclick="stopAllSpeech()" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+      <button onclick="stopAllSpeech()" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition" title="停止播放">
         <i class="fa-solid fa-stop text-[10px]"></i>
       </button>
     </footer>
 
   </div>
 
+  <!-- JavaScript 業務與語音邏輯 -->
   <script>
-    // 站點資料
+    // 5 大樞紐完整深度數據庫
     const spotsData = [
       {
         id: 0,
@@ -464,9 +515,10 @@
         temp: "約 21°C",
         wear: "輕便長袖",
         vehicle: "立山登山纜車 ➔ 乘車約 7 分鐘",
-        desc: "阿爾卑斯山脈路線富山端的大門起點。由此搭乘斜度極大的登山纜車直攀美女平，沿途欣賞平原漸次沒入山林。",
-        notice: "富山電鐵換乘纜車需注意檢票人潮，持預約票券請提前 15 分鐘至閘口準備。",
-        speechText: "立山站標高 475 公尺，是富山側的起點。搭乘登山纜車直上美女平，車程約 7 分鐘，請備妥乘車憑證。"
+        history: "立山登山纜車是富山側進入北阿爾卑斯的樞紐起點。鐵道最大坡度高達 28.7 度，在僅僅 7 分鐘內快速攀升 502 公尺高差。纜車車廂下方特製了露天載貨平台，在昭和年間黑部水電與山岳開發時期，是搬運重型建材、民生物資與工程器械不可或缺的生命線。",
+        highlights: "隨著纜車如鋼索拔升，窗外可觀察低海拔暖溫帶常綠闊葉林迅速過渡至山地落葉闊葉林與針葉林的植被垂直演替；遠方常願寺川沖積河谷與富山平原地形一覽無遺。",
+        notice: "富山電鐵轉乘纜車人潮眾多，持預約票券請提前 15 分鐘於閘口排隊；站前廣場可免費盛裝甘甜清澈的阿爾卑斯名水「立山玉殿湧水」，請於上山前補足水壺。",
+        speechText: "立山站標高 475 公尺，是富山側大門。我們搭乘的立山登山纜車最大傾斜達 28.7 度，車廂下方保留了當年運送水電建材的載貨平台。7 分鐘的爬升中，窗外植被從低海拔闊葉林漸次過渡為高山針葉林，為這趟阿爾卑斯穿越拉開序幕。"
       },
       {
         id: 1,
@@ -475,20 +527,22 @@
         temp: "約 14°C",
         wear: "防風薄外套",
         vehicle: "立山高原巴士 ➔ 乘車約 50 分鐘",
-        desc: "穿越原生巨木林與彌陀原廣闊的高原濕地。初秋草紅葉轉黃，並可遠眺稱名瀑布的壯闊峽谷。",
-        notice: "高原巴士車程約 50 分鐘且山路多彎，易暈車者請提前準備藥物並繫好安全帶。",
-        speechText: "美女平至彌陀原段，搭乘高原巴士攀升近千公尺，沿途欣賞千年生態巨木與高原草紅葉。"
+        history: "美女平保存了未經破壞的千年原生林，以樹齡超過兩千年的巨大「美女杉」與立山杉聞名。隨後巴士爬升進入彌陀原，這是一片座落於標高 1,600 至 1,900 公尺、登錄國際拉姆薩公約（Ramsar Convention）的世界級高山濕地，為古立山火山熔岩流冷卻凝固後形成的平坦高台。",
+        highlights: "巴士途經日本最高落差（高達 350 公尺）的稱名瀑布遠景展望點；彌陀原濕原表層散佈著數千個被稱為「餓鬼田」的微型高山泥炭水窪，9 月下旬初秋草紅葉將整片高原染為金黃地毯。",
+        notice: "高原巴士車程約 50 分鐘且山路蜿蜒盤旋、爬升近千公尺。容易暈車者請提前服用暈車藥；車輛行進中請全程繫好安全帶，並隨時留意窗外可能掠過的高原雲海。",
+        speechText: "美女平至彌陀原段，我們將搭乘高原巴士爬升近一千公尺。美女平擁有樹齡千年的立山巨杉原生林，而隨後的彌陀原是登錄國際拉姆薩公約的世界級高山濕地。放眼望去，散佈著火山地貌形成的餓鬼田水窪，秋季草紅葉宛如金黃地毯般壯闊。"
       },
       {
         id: 2,
-        name: "室堂頂點 (Murodo)",
+        name: "室堂平頂點 (Murodo)",
         altitude: "2,450 m (最高點)",
         temp: "約 8°C ~ 9°C",
-        wear: "保暖夾克 + 洋蔥式防風層",
+        wear: "保暖內層 + 防風防水衝鋒衣 (洋蔥式必備)",
         vehicle: "立山隧道無軌電車 ➔ 乘車約 10 分鐘",
-        desc: "全線最高峰與心臟樞紐。漫步御庫裏池欣賞碧藍火山湖泊倒影，尋找國寶野生雷鳥足跡。",
-        notice: "海拔高達 2,450 公尺，氣溫經常在 10 度以下。步道為石板路，請放慢步行步調以防高山反應。",
-        speechText: "抵達標高 2,450 公尺的室堂。此處風大低溫，請穿著防風保暖衣物，漫步御庫裏池畔時可尋找雷鳥蹤影。"
+        history: "室堂平是全線最高樞紐，座落於立山火山噴發形成的熔岩台地上。核心地標御庫裏池（みくりが池）是約一萬五千年前火山噴發形成的破火山口湖，水深達 15 公尺。此處亦是自古日本「立山修驗道」的山岳信仰聖地，自古被視為神聖的淨土世界。",
+        highlights: "秋季澄澈的御庫裏池湖面如鏡，完美倒映雄山、大汝山與富士之折立等立山三山。周邊矮檜木叢是冰河時期孑遺的高山生靈「雷鳥」（日本特別天然紀念物）的關鍵棲息地；秋季雷鳥羽毛逐漸轉為冬雪純白，清晨或霧氣瀰漫時最易尋獲其蹤影。",
+        notice: "室堂海拔近 2,500 公尺，氣壓低且強風多變，即便晴天體感亦常驟降至 10 度以下。請放慢腳步防範高山反應；御庫裏池旁緊鄰地獄谷火山硫磺噴口，請嚴格沿石板木棧道行走，切勿擅自脫離步道。",
+        speechText: "歡迎抵達標高 2,450 公尺的最高點室堂平。深邃湛藍的御庫裏池是萬年火山噴發遺留的火口湖，能倒映雄山連峰的倒影。這裡更是冰河時期孑遺生靈雷鳥的保護棲息地。高山空氣稀薄且風大低溫，請務必做好防風保暖，放慢腳步感受大自然聖境。"
       },
       {
         id: 3,
@@ -496,21 +550,24 @@
         altitude: "2,316 m ➔ 1,828 m",
         temp: "約 12°C",
         wear: "防風夾克",
-        vehicle: "立山空中索道 + 黑部登山纜車 ➔ 共約 15 分鐘",
-        desc: "搭乘全日本最長無支柱空中纜車，如空中移動展望台俯瞰黑部峽谷，再轉乘地下登山纜車陡降至黑部平。",
-        notice: "大觀峰屋頂展望台風勢強大，拍照請拿穩手機；地下登山纜車氣溫偏低。",
-        speechText: "大觀峰至黑部平段，搭乘無支柱空中索道滑降黑部峽谷，視野壯觀無比。"
+        vehicle: "立山空中索道 (7分) + 黑部登山纜車 (5分) ➔ 共約 15 分鐘",
+        desc: "",
+        history: "立山架空索道全長達 1,710 公尺，垂直落差達 488 公尺。為了保護後立山連峰脆弱的原始山體景觀並徹底杜絕冬季暴雪雪崩對設施的破壞，工程團隊排除萬難，全線完全未設立任何地面支柱，造就了全日本最長的「單跨式空中無支柱索道」，被讚譽為現代索道工程奇蹟。",
+        highlights: "宛如一座懸空移動的 360 度全景展望台，由大觀峰懸崖頂端如大鷲般滑向黑部平。眼前黑部水庫蓄水形成的翡翠綠黑部湖盡收眼底，後立山連峰宛如巨大屏風壁立於兩側，氣勢雄渾。",
+        notice: "大觀峰頂樓懸空展望台風勢極其強烈，拍照時請務必扣緊隨身手機掛繩；隨後接駁的黑部登山纜車為了防範豪雪雪崩，全線皆開鑿於地下岩盤隧道內，車廂內部氣溫偏冷。",
+        speechText: "大觀峰至黑部平段，我們搭乘全日本最長的單跨無支柱空中索道。長達 1.7 公里的纜繩之間沒有任何地面支柱支撐，宛如飛行展望台懸空滑降黑部峽谷。隨後換乘全線建於地底岩盤的黑部登山纜車，體會日本人與暴雪共存的工程智慧。"
       },
       {
         id: 4,
         name: "黑部水壩 ➔ 扇澤站",
         altitude: "1,470 m ➔ 1,433 m",
         temp: "約 16°C",
-        wear: "休閒舒適長袖",
-        vehicle: "步行水壩頂 (15 分) + 關電隧道電氣巴士 (16 分)",
-        desc: "日本第一高拱形水壩，步行橫跨堤頂感受每秒十餘噸的壯觀洩洪，隨後搭乘電氣巴士穿透破碎帶抵達長野扇澤站。",
-        notice: "水壩堤頂長度約 500 公尺，請依順行方向走至黑部湖站，留意扇澤方向末班車時間。",
-        speechText: "抵達黑部水壩，漫步壩頂欣賞壯觀洩洪後，搭乘電氣巴士穿透後立山斷層抵達終點扇澤站。"
+        wear: "長袖保暖防風夾克",
+        vehicle: "步行過壩頂 (約 15 分鐘) + 關電隧道電氣巴士 (約 16 分鐘)",
+        history: "黑部水壩堤高達 186 公尺，為日本最高拱形水庫。在昭和 31 年動工之際，動員上千萬工匠人次、耗資五百多億日圓，克服了被地質學家視為不可能逾越的「極限破碎帶」（後立山連峰內部每秒噴出 600 公升低溫冰水與碎石的軟弱斷層）。歷時 7 年艱辛築壩，殉職 171 人，是戰後日本經濟振興的史詩奇蹟（石原裕次郎名作《黑部的太陽》故事背景）。",
+        highlights: "初秋時節觀光洩洪每秒噴湧十餘噸水霧，在陽光下常跨越出巨大彩虹。步行於長達 492 公尺的壩頂，可近距離感受水氣衝擊與雷鳴般的震盪；換乘的關電隧道電氣巴士穿越後立山斷層隧道，車內會標示當年最艱困的「破碎帶」位置。",
+        notice: "步行橫跨壩頂需徒步約 15 分鐘（含 220 階戶外觀景階梯），沿途水氣豐沛且風大；關電隧道內部常年維持在 10°C 左右，請留意長野扇澤側末班車發車時間，避免錯過回程交通。",
+        speechText: "抵達世紀工程黑部水壩。這座高達 186 公尺的日本第一高拱形水壩，見證了當年克服後立山連峰斷層破碎帶、殉職 171 人的悲壯史詩。步行於壩頂欣賞氣勢磅礴的水霧洩洪後，搭乘電氣巴士穿透曾湧出致命地下水的破碎帶，順利抵達終點長野扇澤站。"
       }
     ];
 
@@ -531,31 +588,40 @@
       calculateExchange();
     }
 
-    // 站點選取與同步滾動
+    // 站點按鈕點擊連動
     function selectSpot(index) {
       const card = document.getElementById(`spotCard-${index}`);
       if (card) {
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        const innerCard = card.querySelector('div.bg-slate-900\\/90');
+        
+        // 發光聚焦特效
+        const innerCard = card.querySelector('div.bg-slate-900\\/90, div.bg-gradient-to-b');
         if (innerCard) {
           innerCard.classList.add('highlight-card');
-          setTimeout(() => innerCard.classList.remove('highlight-card'), 1500);
+          setTimeout(() => {
+            innerCard.classList.remove('highlight-card');
+          }, 1500);
         }
-        document.getElementById('statTemp').innerHTML = `${spotsData[index].temp} <span class="text-[10px] font-normal text-slate-400">| ${spotsData[index].wear}</span>`;
+
+        // 同步頂部狀態列
+        const target = spotsData[index];
+        document.getElementById('statTemp').innerHTML = `${target.temp} <span class="text-[10px] font-normal text-slate-400">| ${target.wear}</span>`;
       }
     }
 
     // 全覽語音
     function toggleOverviewSpeech() {
       if (!synth) {
-        alert("瀏覽器暫不支援語音功能");
+        alert("目前瀏覽器環境暫不支援語音合成功能。");
         return;
       }
       if (isOverviewSpeaking || synth.speaking) {
         stopAllSpeech();
         return;
       }
-      const txt = "歡迎體驗立山黑部阿爾卑斯路線。今日由富山側立山站出發，逐步攀登至標高 2,450 公尺的室堂最高峰，再經黑部水壩抵達長野側扇澤站。請隨時注意山區溫差與末班車轉乘時間。";
+      
+      const txt = "歡迎啟程立山黑部阿爾卑斯路線深度橫越之旅。今日我們將由富山側立山站出發，藉由傾斜鐵道、世界級高原巴士與無軌電車，登上標高 2,450 公尺的室堂平，巡禮萬年火口湖與冰河雷鳥。隨後乘搭無支柱空中索道滑降黑部峽谷，橫越戰後水電史詩黑部水壩，抵達長野扇澤。請隨時注意洋蔥式穿著與末班車轉乘時間。";
+      
       const u = new SpeechSynthesisUtterance(txt);
       u.lang = 'zh-TW';
       u.rate = 0.95;
@@ -585,16 +651,19 @@
       synth.speak(u);
     }
 
-    // Modal
+    // Modal 深度彈窗控制
     function openSpotModal(index) {
       currentModalIndex = index;
       const data = spotsData[index];
-      document.getElementById('modalSpotBadge').innerText = `節點 ${index + 1} 詳情`;
+
+      document.getElementById('modalSpotBadge').innerText = `NODE ${index + 1} · DEPTH PROFILE`;
       document.getElementById('modalSpotTitle').innerText = data.name;
-      document.getElementById('modalSpotAlt').innerText = `高度：${data.altitude} ｜ 氣溫：${data.temp}`;
+      document.getElementById('modalSpotAlt').innerText = `${data.altitude} ｜ ${data.temp}`;
       document.getElementById('modalSpotVehicle').innerText = data.vehicle;
-      document.getElementById('modalSpotDesc').innerText = data.desc;
+      document.getElementById('modalSpotHistory').innerText = data.history;
+      document.getElementById('modalSpotHighlights').innerText = data.highlights;
       document.getElementById('modalSpotNotice').innerText = data.notice;
+
       document.getElementById('spotModal').classList.remove('hidden');
     }
 
