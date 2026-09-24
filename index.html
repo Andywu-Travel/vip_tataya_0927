@@ -15,18 +15,15 @@
           colors: {
             alpine: {
               50: '#f0f9ff',
-              100: '#e0f2fe',
               500: '#0ea5e9',
               600: '#0284c7',
               700: '#0369a1',
-              800: '#075985',
               900: '#0c4a6e',
               950: '#082f49'
             },
             autumn: {
               400: '#fb923c',
-              500: '#f97316',
-              600: '#ea580c'
+              500: '#f97316'
             }
           }
         }
@@ -34,239 +31,189 @@
     }
   </script>
   <style>
-    @keyframes pulse-ring {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.05); opacity: 0.4; }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-    .pulse-glow {
-      animation: pulse-ring 2s infinite ease-in-out;
-    }
     .highlight-card {
-      box-shadow: 0 0 25px rgba(14, 165, 233, 0.45);
+      box-shadow: 0 0 25px rgba(14, 165, 233, 0.6) !important;
       border-color: #38bdf8 !important;
-      transition: all 0.3s ease;
+      transform: scale(1.02);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-cyan-500 selection:text-white flex justify-center">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased flex justify-center selection:bg-cyan-500 selection:text-white">
 
-  <!-- 手機邊界模擬容器 -->
-  <div class="w-full max-w-md bg-slate-900 min-h-screen flex flex-col relative shadow-2xl border-x border-slate-800 pb-20">
+  <!-- 手機邊界主容器 -->
+  <div class="w-full max-w-md bg-[#0b1120] min-h-screen flex flex-col relative shadow-2xl border-x border-slate-800 pb-28">
 
-    <!-- 頂部導航與環境識別 -->
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 py-3.5">
+    <!-- 頂部 Header -->
+    <header class="sticky top-0 z-40 bg-[#0b1120]/95 backdrop-blur-md border-b border-slate-800/80 px-4 py-3">
       <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
-          <span class="text-xs font-semibold tracking-wider text-cyan-400 uppercase">富山側入山 · 阿爾卑斯東行</span>
+        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-[11px] text-emerald-300 font-medium">
+          <i class="fa-solid fa-arrow-trend-up text-[10px]"></i>
+          <span>富山側入山 · 阿爾卑斯東行線</span>
         </div>
-        <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 font-mono">
-          2026/09/27
+        <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-500/40 font-medium">
+          <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> 全程橫越
         </span>
       </div>
 
-      <div class="mt-2 flex items-baseline justify-between">
-        <h1 class="text-lg font-black tracking-tight text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-mountain text-cyan-400"></i> 立山黑部橫越隨身導覽
-        </h1>
-        <span class="text-xs font-medium text-autumn-400 bg-autumn-500/10 px-2 py-0.5 rounded border border-autumn-500/30">
-          立山 ➔ 扇澤
-        </span>
+      <div class="mt-2.5 flex items-center justify-between">
+        <div>
+          <h1 class="text-lg font-black tracking-tight text-white flex items-center gap-1.5">
+            立山黑部阿爾卑斯 <span class="text-xs px-2 py-0.5 rounded bg-cyan-600/30 text-cyan-300 border border-cyan-500/30">隨身導覽</span>
+          </h1>
+          <div class="text-[11px] text-slate-400 mt-0.5 flex items-center gap-1.5">
+            <i class="fa-solid fa-route text-autumn-400"></i>
+            <span>立山站 ➔ 扇澤站 · 富山出發橫越長野</span>
+          </div>
+        </div>
+        <button id="btnOverviewSpeech" onclick="toggleOverviewSpeech()" class="w-11 h-11 rounded-2xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white flex flex-col items-center justify-center transition shadow-lg">
+          <i id="btnOverviewIcon" class="fa-solid fa-headphones-simple text-sm"></i>
+          <span id="btnOverviewText" class="text-[9px] font-bold mt-0.5">全覽</span>
+        </button>
       </div>
 
-      <!-- 環境氣候摘要列 -->
-      <div class="mt-3 grid grid-cols-3 gap-2 bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50 text-center">
-        <div>
-          <div class="text-[10px] text-slate-400">室堂頂點氣溫</div>
-          <div id="statTemp" class="text-sm font-bold text-cyan-300 mt-0.5">8°C ~ 9°C</div>
+      <!-- 環境即時儀表板 -->
+      <div class="mt-2.5 bg-slate-900/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm border border-cyan-500/30">
+            <i class="fa-solid fa-cloud-sun"></i>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400">目前檢視：全線最高點 · 室堂</div>
+            <div id="statTemp" class="text-xs font-bold text-white tracking-wide">約 8°C~9°C <span class="text-[10px] font-normal text-slate-400">| 高山低溫風大</span></div>
+          </div>
         </div>
-        <div class="border-x border-slate-700/60">
-          <div class="text-[10px] text-slate-400">最大垂直高差</div>
-          <div class="text-sm font-bold text-amber-400 mt-0.5">1,975 m</div>
-        </div>
-        <div>
-          <div class="text-[10px] text-slate-400">行前著裝重點</div>
-          <div id="statWear" class="text-xs font-semibold text-emerald-400 mt-0.5">洋蔥式防風</div>
+        <div class="text-right">
+          <span id="statWear" class="text-[11px] font-semibold text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/30 flex items-center gap-1">
+            <i class="fa-solid fa-shirt"></i> 防風保暖夾克
+          </span>
+          <div class="text-[9px] text-slate-400 mt-0.5">全線溫差達 12°C 以上</div>
         </div>
       </div>
     </header>
 
-    <!-- 主要內容滾動區 -->
-    <main class="flex-1 px-4 py-4 space-y-4">
+    <!-- 內容主體區 -->
+    <main class="flex-1 px-4 py-3 space-y-4">
 
-      <!-- 全程總覽語音導覽卡片 -->
-      <section class="bg-gradient-to-r from-sky-950/80 via-slate-800/80 to-slate-900/80 border border-sky-600/40 rounded-2xl p-3.5 relative overflow-hidden shadow-lg">
-        <div class="flex items-center justify-between relative z-10">
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg border border-cyan-500/30">
-              <i class="fa-solid fa-headphones-simple"></i>
-            </div>
-            <div>
-              <h2 class="text-sm font-bold text-white tracking-wide">全線橫越行前音訊總覽</h2>
-              <p class="text-[11px] text-slate-300">富山入山至長野出山核心行前提醒</p>
-            </div>
+      <!-- 海拔垂直高差軌跡儀表 -->
+      <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 shadow-md">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-line text-cyan-400"></i> 海拔落差軌跡（點擊可同步卡片）
           </div>
-          <button id="btnOverviewSpeech" onclick="toggleOverviewSpeech()" class="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md">
-            <i id="btnOverviewIcon" class="fa-solid fa-volume-high"></i>
-            <span id="btnOverviewText">播報</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- 海拔垂直高差軌跡儀表（橫向滾動點擊聯動） -->
-      <section class="bg-slate-800/70 border border-slate-700/60 rounded-2xl p-3.5 shadow-md">
-        <div class="flex items-center justify-between mb-2.5">
-          <h2 class="text-xs font-bold text-slate-200 tracking-wider flex items-center gap-1.5">
-            <i class="fa-solid fa-chart-line text-cyan-400"></i> 海拔落差軌跡（點選可定位）
-          </h2>
-          <span class="text-[10px] text-slate-400">西向東爬升下切</span>
+          <div class="text-[10px] font-mono text-autumn-400">爬升 +1,975m ➔ 下降</div>
         </div>
         
         <div class="flex items-center justify-between gap-1 overflow-x-auto no-scrollbar py-1">
-          <!-- 站點 0 -->
-          <button onclick="selectSpot(0)" class="flex-shrink-0 flex flex-col items-center p-2 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-500 focus:outline-none transition group w-[68px]">
-            <span class="text-[10px] text-slate-400 group-hover:text-cyan-300">475m</span>
-            <div class="w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-cyan-400 my-1"></div>
-            <span class="text-[11px] font-bold text-slate-200 truncate w-full text-center">立山站</span>
+          <button onclick="selectSpot(0)" class="flex-1 min-w-[62px] p-1.5 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-500 text-center transition">
+            <div class="text-[11px] font-bold text-slate-200">立山站</div>
+            <div class="text-[10px] text-cyan-400 font-mono">475m</div>
           </button>
-
-          <i class="fa-solid fa-arrow-right text-[10px] text-slate-600"></i>
-
-          <!-- 站點 1 -->
-          <button onclick="selectSpot(1)" class="flex-shrink-0 flex flex-col items-center p-2 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-500 focus:outline-none transition group w-[68px]">
-            <span class="text-[10px] text-slate-400 group-hover:text-cyan-300">977m</span>
-            <div class="w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-cyan-400 my-1"></div>
-            <span class="text-[11px] font-bold text-slate-200 truncate w-full text-center">美女平</span>
+          <button onclick="selectSpot(1)" class="flex-1 min-w-[62px] p-1.5 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-500 text-center transition">
+            <div class="text-[11px] font-bold text-slate-200">美女平</div>
+            <div class="text-[10px] text-cyan-400 font-mono">977m</div>
           </button>
-
-          <i class="fa-solid fa-arrow-right text-[10px] text-slate-600"></i>
-
-          <!-- 站點 2 (室堂) -->
-          <button onclick="selectSpot(2)" class="flex-shrink-0 flex flex-col items-center p-2 rounded-xl bg-amber-950/40 border border-amber-500/80 hover:border-amber-400 focus:outline-none transition group w-[74px]">
-            <span class="text-[10px] text-amber-300 font-bold">2,450m</span>
-            <div class="w-3 h-3 rounded-full bg-amber-400 my-0.5 shadow-sm shadow-amber-400"></div>
-            <span class="text-[11px] font-black text-amber-200 truncate w-full text-center">室堂頂點</span>
+          <button onclick="selectSpot(2)" class="flex-1 min-w-[68px] p-1.5 rounded-xl bg-amber-950/50 border border-amber-500 hover:border-amber-400 text-center transition">
+            <div class="text-[11px] font-black text-amber-300">室堂頂點</div>
+            <div class="text-[10px] text-amber-400 font-mono font-bold">2,450m</div>
           </button>
-
-          <i class="fa-solid fa-arrow-right text-[10px] text-slate-600"></i>
-
-          <!-- 站點 3 -->
-          <button onclick="selectSpot(3)" class="flex-shrink-0 flex flex-col items-center p-2 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-500 focus:outline-none transition group w-[68px]">
-            <span class="text-[10px] text-slate-400 group-hover:text-cyan-300">2,316m</span>
-            <div class="w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-cyan-400 my-1"></div>
-            <span class="text-[11px] font-bold text-slate-200 truncate w-full text-center">大觀峰</span>
+          <button onclick="selectSpot(3)" class="flex-1 min-w-[68px] p-1.5 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-500 text-center transition">
+            <div class="text-[11px] font-bold text-slate-200">大觀/黑平</div>
+            <div class="text-[10px] text-cyan-400 font-mono">1,828m</div>
           </button>
-
-          <i class="fa-solid fa-arrow-right text-[10px] text-slate-600"></i>
-
-          <!-- 站點 4 -->
-          <button onclick="selectSpot(4)" class="flex-shrink-0 flex flex-col items-center p-2 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-500 focus:outline-none transition group w-[68px]">
-            <span class="text-[10px] text-slate-400 group-hover:text-cyan-300">1,433m</span>
-            <div class="w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-cyan-400 my-1"></div>
-            <span class="text-[11px] font-bold text-slate-200 truncate w-full text-center">扇澤站</span>
+          <button onclick="selectSpot(4)" class="flex-1 min-w-[62px] p-1.5 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-500 text-center transition">
+            <div class="text-[11px] font-bold text-slate-200">扇澤站</div>
+            <div class="text-[10px] text-cyan-400 font-mono">1,433m</div>
           </button>
+        </div>
+
+        <div class="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+          <span class="flex items-center gap-1 text-amber-400">
+            <i class="fa-solid fa-triangle-exclamation"></i> 高山低壓低氧，抵達室堂請放緩步調
+          </span>
+          <span>富山起登 ➔ 長野落點</span>
         </div>
       </section>
 
-      <!-- 日圓 JPY 🪞 新台幣 TWD 匯率速算器 -->
-      <section class="bg-slate-800/70 border border-slate-700/60 rounded-2xl p-3.5 shadow-md">
+      <!-- 日幣 JPY 🪞 台幣 TWD 速算器 -->
+      <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 shadow-md">
         <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-2">
-            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">
-              <i class="fa-solid fa-yen-sign"></i>
-            </span>
-            <h2 class="text-xs font-bold text-slate-200">日幣 🪞 台幣即時換算</h2>
+          <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+            <i class="fa-solid fa-yen-sign text-emerald-400"></i> 日幣 🪞 台幣速算器
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-[10px] text-slate-400">匯率:</span>
-            <input type="number" id="exchangeRate" value="0.215" step="0.005" onchange="calculateExchange()" class="w-14 bg-slate-900 border border-slate-700 rounded px-1.5 py-0.5 text-xs text-right text-emerald-400 font-mono focus:outline-none focus:border-emerald-500" />
+            <span class="text-[10px] text-slate-400">自訂匯率:</span>
+            <input type="number" id="exchangeRate" value="0.215" step="0.005" onchange="calculateExchange()" class="w-14 bg-slate-800 border border-slate-700 rounded px-1.5 py-0.5 text-xs text-right text-emerald-400 font-mono focus:outline-none" />
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-2 mt-2">
-          <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-700">
-            <label class="text-[10px] text-slate-400 block mb-0.5">日幣金額 (JPY ¥)</label>
-            <input type="number" id="inputJpy" value="3000" oninput="calculateExchange()" class="w-full bg-transparent text-sm font-bold text-white focus:outline-none font-mono" placeholder="輸入日幣" />
+        <div class="grid grid-cols-2 gap-2">
+          <div class="bg-slate-800/90 p-2 rounded-xl border border-slate-700">
+            <span class="text-[9px] text-slate-400 block">日幣金額 (JPY ¥)</span>
+            <input type="number" id="inputJpy" value="3000" oninput="calculateExchange()" class="w-full bg-transparent text-sm font-bold text-white focus:outline-none font-mono" />
           </div>
-          <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-700 flex flex-col justify-center">
-            <span class="text-[10px] text-slate-400 block mb-0.5">折合台幣 (TWD NT$)</span>
+          <div class="bg-slate-800/90 p-2 rounded-xl border border-slate-700 flex flex-col justify-center">
+            <span class="text-[9px] text-slate-400 block">折合台幣 (TWD NT$)</span>
             <span id="outputTwd" class="text-sm font-bold text-emerald-400 font-mono">約 NT$ 645</span>
           </div>
         </div>
 
-        <!-- 常用速選金額標籤 -->
-        <div class="flex gap-1.5 mt-2 overflow-x-auto no-scrollbar pt-1">
-          <button onclick="setJpyPreset(1000)" class="text-[10px] px-2 py-1 rounded bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300">¥1,000</button>
-          <button onclick="setJpyPreset(3000)" class="text-[10px] px-2 py-1 rounded bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300">¥3,000</button>
-          <button onclick="setJpyPreset(5000)" class="text-[10px] px-2 py-1 rounded bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300">¥5,000</button>
-          <button onclick="setJpyPreset(10000)" class="text-[10px] px-2 py-1 rounded bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300">¥10,000</button>
+        <div class="grid grid-cols-4 gap-1.5 mt-2">
+          <button onclick="setJpyPreset(1000)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-slate-300 font-mono">¥1,000</button>
+          <button onclick="setJpyPreset(3000)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-slate-300 font-mono">¥3,000</button>
+          <button onclick="setJpyPreset(5000)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-slate-300 font-mono">¥5,000</button>
+          <button onclick="setJpyPreset(10000)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-slate-300 font-mono">¥10,000</button>
         </div>
       </section>
 
-      <!-- 橫越節點推進區塊 (純 HTML 靜態固化・無空白風險) -->
-      <section class="mt-5">
+      <!-- 橫越節點推進清單（完全靜態 DOM，保證必顯示） -->
+      <section class="mt-4">
         <div class="flex items-center justify-between mb-3 px-1">
-          <h2 class="text-xs font-bold text-slate-300 tracking-wider flex items-center gap-1.5 uppercase">
-            <i class="fa-solid fa-route text-cyan-400"></i> 橫越節點推進（無寫死時間・標註歷時）
+          <h2 class="text-xs font-bold text-slate-300 tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-diagram-project text-cyan-400"></i> 橫越節點推進（無寫死時間點・標註乘車歷時）
           </h2>
-          <span class="text-[10px] text-slate-400">5 大樞紐樞密聯動</span>
+          <span class="text-[10px] text-slate-400">5 大樞紐站</span>
         </div>
 
-        <!-- 垂直時間軸導軌容器 -->
-        <div id="timelineContainer" class="relative space-y-4 pl-3.5 before:content-[''] before:absolute before:left-[27px] before:top-4 before:bottom-4 before:w-0.5 before:bg-slate-700/80">
+        <!-- 卡片清單容器 -->
+        <div id="timelineContainer" class="relative space-y-4 pl-4 before:content-[''] before:absolute before:left-[17px] before:top-4 before:bottom-4 before:w-0.5 before:bg-slate-700/80">
 
           <!-- 節點 1：立山站 -->
-          <div id="spotCard-0" class="relative pl-7 transition-all duration-300">
-            <!-- 序號徽章 -->
-            <div class="absolute left-0 top-3 -translate-x-1/2 w-8 h-8 rounded-full bg-cyan-600 text-white font-black text-xs flex items-center justify-center ring-4 ring-slate-900 shadow-md">
+          <div id="spotCard-0" class="relative pl-6 transition-all duration-300">
+            <div class="absolute left-0 top-3 -translate-x-1/2 w-7 h-7 rounded-full bg-cyan-600 text-white font-bold text-xs flex items-center justify-center ring-4 ring-[#0b1120] shadow-md">
               1
             </div>
 
-            <!-- 卡片本體 -->
-            <div class="bg-slate-800/85 border border-slate-700/70 rounded-2xl p-4 shadow-lg">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-lg transition-all">
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center gap-2">
-                    <h3 class="text-base font-bold text-white tracking-wide">立山站 (Tateyama Sta.)</h3>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700/70 text-cyan-300 font-mono">標高 475m</span>
+                    <h3 class="text-sm font-bold text-white">立山站 (Tateyama Sta.)</h3>
+                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">475m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">
-                    富山側門戶 · 登山鐵道起點
-                  </div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">富山側門戶 · 登山鐵道起點</div>
                 </div>
-                <div class="w-8 h-8 rounded-xl bg-slate-700/50 flex items-center justify-center text-slate-300 text-xs">
-                  <i class="fa-solid fa-train"></i>
-                </div>
+                <i class="fa-solid fa-train text-slate-500 text-sm"></i>
               </div>
 
-              <!-- 載具與歷時資訊 -->
-              <div class="mt-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/50 flex items-center justify-between text-xs">
-                <span class="text-slate-300 font-medium flex items-center gap-1.5">
-                  <i class="fa-solid fa-cable-car text-amber-400"></i> 立山登山纜車 (Cable Car)
+              <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
+                <span class="text-slate-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-cable-car text-amber-400"></i> 立山登山纜車
                 </span>
-                <span class="text-amber-400 font-mono font-bold text-[11px] bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                  乘車歷時：約 7 分鐘
-                </span>
+                <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 7 分鐘</span>
               </div>
 
-              <p class="text-xs text-slate-300 leading-relaxed mt-2.5">
-                搭乘高傾斜度斜面地面纜車直攀美女平，沿途欣賞富山平原漸次沒入山林，開啟橫越序曲。
+              <p class="text-xs text-slate-300 leading-relaxed mt-2">
+                搭乘高傾斜度地面纜車直攀美女平，沿途欣賞富山平原漸次沒入山林。
               </p>
 
-              <!-- 互動操作列 -->
-              <div class="mt-3.5 pt-2.5 border-t border-slate-700/50 flex items-center justify-between">
-                <button onclick="openSpotModal(0)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-xs text-slate-200 font-semibold flex items-center gap-1.5 transition">
+              <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
+                <button onclick="openSpotModal(0)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
                   <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
                 </button>
-                <button onclick="playSingleSpotSpeech(0)" class="px-3 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 font-semibold flex items-center gap-1.5 transition">
+                <button onclick="playSingleSpotSpeech(0)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -274,91 +221,79 @@
           </div>
 
           <!-- 節點 2：美女平 ➔ 彌陀原 -->
-          <div id="spotCard-1" class="relative pl-7 transition-all duration-300">
-            <div class="absolute left-0 top-3 -translate-x-1/2 w-8 h-8 rounded-full bg-cyan-600 text-white font-black text-xs flex items-center justify-center ring-4 ring-slate-900 shadow-md">
+          <div id="spotCard-1" class="relative pl-6 transition-all duration-300">
+            <div class="absolute left-0 top-3 -translate-x-1/2 w-7 h-7 rounded-full bg-cyan-600 text-white font-bold text-xs flex items-center justify-center ring-4 ring-[#0b1120] shadow-md">
               2
             </div>
 
-            <div class="bg-slate-800/85 border border-slate-700/70 rounded-2xl p-4 shadow-lg">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-lg transition-all">
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center gap-2">
-                    <h3 class="text-base font-bold text-white tracking-wide">美女平 ➔ 彌陀原</h3>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700/70 text-cyan-300 font-mono">977m ~ 1,930m</span>
+                    <h3 class="text-sm font-bold text-white">美女平 ➔ 彌陀原</h3>
+                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">977m ~ 1,930m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">
-                    原生巨木林 · 高原濕原生態
-                  </div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">原生巨木林 · 高原濕原生態</div>
                 </div>
-                <div class="w-8 h-8 rounded-xl bg-slate-700/50 flex items-center justify-center text-slate-300 text-xs">
-                  <i class="fa-solid fa-tree"></i>
-                </div>
+                <i class="fa-solid fa-tree text-slate-500 text-sm"></i>
               </div>
 
-              <div class="mt-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/50 flex items-center justify-between text-xs">
-                <span class="text-slate-300 font-medium flex items-center gap-1.5">
-                  <i class="fa-solid fa-bus text-cyan-400"></i> 立山高原巴士 (Highland Bus)
+              <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
+                <span class="text-slate-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-bus text-cyan-400"></i> 立山高原巴士
                 </span>
-                <span class="text-amber-400 font-mono font-bold text-[11px] bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                  乘車歷時：約 50 分鐘
-                </span>
+                <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 50 分鐘</span>
               </div>
 
-              <p class="text-xs text-slate-300 leading-relaxed mt-2.5">
-                穿越千年生態山毛櫸巨木林與彌陀原高原濕地，秋季可遠眺日本第一落差的稱名瀑布與金黃草紅葉。
+              <p class="text-xs text-slate-300 leading-relaxed mt-2">
+                穿越千年生態山毛櫸林與彌陀原高原濕地，秋季可遠眺稱名瀑布與金黃草紅葉。
               </p>
 
-              <div class="mt-3.5 pt-2.5 border-t border-slate-700/50 flex items-center justify-between">
-                <button onclick="openSpotModal(1)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-xs text-slate-200 font-semibold flex items-center gap-1.5 transition">
+              <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
+                <button onclick="openSpotModal(1)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
                   <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
                 </button>
-                <button onclick="playSingleSpotSpeech(1)" class="px-3 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 font-semibold flex items-center gap-1.5 transition">
+                <button onclick="playSingleSpotSpeech(1)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- 節點 3：室堂頂點 (核心亮點加強外框) -->
-          <div id="spotCard-2" class="relative pl-7 transition-all duration-300">
-            <div class="absolute left-0 top-3 -translate-x-1/2 w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center ring-4 ring-slate-900 shadow-md">
+          <!-- 節點 3：室堂頂點 -->
+          <div id="spotCard-2" class="relative pl-6 transition-all duration-300">
+            <div class="absolute left-0 top-3 -translate-x-1/2 w-7 h-7 rounded-full bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center ring-4 ring-[#0b1120] shadow-md">
               3
             </div>
 
-            <div class="bg-gradient-to-b from-slate-800/90 to-amber-950/20 border-2 border-amber-500/80 rounded-2xl p-4 shadow-xl">
+            <div class="bg-slate-900/90 border-2 border-amber-500/80 rounded-2xl p-4 shadow-xl transition-all">
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center gap-2">
-                    <h3 class="text-base font-extrabold text-amber-300 tracking-wide">室堂頂點 (Murodo)</h3>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono font-bold">標高 2,450m</span>
+                    <h3 class="text-sm font-black text-amber-300">室堂頂點 (Murodo)</h3>
+                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">2,450m</span>
                   </div>
-                  <div class="text-[11px] text-amber-400 font-semibold mt-0.5">
-                    全線最高峰 · 火山湖與雷鳥聖地
-                  </div>
+                  <div class="text-[11px] text-amber-400 font-semibold mt-0.5">全線最高峰 · 火山湖與雷鳥</div>
                 </div>
-                <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs border border-amber-500/30">
-                  <i class="fa-solid fa-crown"></i>
-                </div>
+                <i class="fa-solid fa-crown text-amber-400 text-sm"></i>
               </div>
 
-              <div class="mt-2.5 bg-slate-900/80 p-2.5 rounded-xl border border-amber-500/30 flex items-center justify-between text-xs">
-                <span class="text-slate-200 font-medium flex items-center gap-1.5">
-                  <i class="fa-solid fa-bus-simple text-amber-400"></i> 立山隧道無軌電車 (Tunnel Trolley)
+              <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-amber-500/30 flex items-center justify-between text-xs">
+                <span class="text-slate-200 flex items-center gap-1.5">
+                  <i class="fa-solid fa-bus-simple text-amber-400"></i> 立山隧道無軌電車
                 </span>
-                <span class="text-amber-400 font-mono font-bold text-[11px] bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                  乘車歷時：約 10 分鐘
-                </span>
+                <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 10 分鐘</span>
               </div>
 
-              <p class="text-xs text-slate-200 leading-relaxed mt-2.5 font-normal">
-                阿爾卑斯路線最高核心！漫步御庫裏池（みくりが池）步道欣賞火山湖倒影，尋找高山野生雷鳥足跡，並可在此享用高山午餐便當。
+              <p class="text-xs text-slate-200 leading-relaxed mt-2 font-medium">
+                路線最高樞紐！漫步御庫裏池步道，欣賞高山湖泊倒影，尋找野生雷鳥足跡。
               </p>
 
-              <div class="mt-3.5 pt-2.5 border-t border-slate-700/60 flex items-center justify-between">
-                <button onclick="openSpotModal(2)" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-xs text-amber-300 border border-amber-500/40 font-semibold flex items-center gap-1.5 transition">
+              <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
+                <button onclick="openSpotModal(2)" class="px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-xs text-amber-300 border border-amber-500/40 flex items-center gap-1.5">
                   <i class="fa-solid fa-circle-info text-amber-300"></i> 站點全解說
                 </button>
-                <button onclick="playSingleSpotSpeech(2)" class="px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-400 text-xs font-bold flex items-center gap-1.5 transition shadow">
+                <button onclick="playSingleSpotSpeech(2)" class="px-3 py-1 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-400 text-xs font-bold flex items-center gap-1.5">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -366,45 +301,39 @@
           </div>
 
           <!-- 節點 4：大觀峰 ➔ 黑部平 -->
-          <div id="spotCard-3" class="relative pl-7 transition-all duration-300">
-            <div class="absolute left-0 top-3 -translate-x-1/2 w-8 h-8 rounded-full bg-cyan-600 text-white font-black text-xs flex items-center justify-center ring-4 ring-slate-900 shadow-md">
+          <div id="spotCard-3" class="relative pl-6 transition-all duration-300">
+            <div class="absolute left-0 top-3 -translate-x-1/2 w-7 h-7 rounded-full bg-cyan-600 text-white font-bold text-xs flex items-center justify-center ring-4 ring-[#0b1120] shadow-md">
               4
             </div>
 
-            <div class="bg-slate-800/85 border border-slate-700/70 rounded-2xl p-4 shadow-lg">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-lg transition-all">
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center gap-2">
-                    <h3 class="text-base font-bold text-white tracking-wide">大觀峰 ➔ 黑部平</h3>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700/70 text-cyan-300 font-mono">2,316m ➔ 1,828m</span>
+                    <h3 class="text-sm font-bold text-white">大觀峰 ➔ 黑部平</h3>
+                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">2,316m ➔ 1,828m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">
-                    空中全景展望 · 斷崖空中索道
-                  </div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">空中全景展望 · 斷崖索道</div>
                 </div>
-                <div class="w-8 h-8 rounded-xl bg-slate-700/50 flex items-center justify-center text-slate-300 text-xs">
-                  <i class="fa-solid fa-arrows-down-to-line"></i>
-                </div>
+                <i class="fa-solid fa-cable-car text-slate-500 text-sm"></i>
               </div>
 
-              <div class="mt-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/50 flex items-center justify-between text-xs">
-                <span class="text-slate-300 font-medium flex items-center gap-1.5">
-                  <i class="fa-solid fa-cable-car text-cyan-400"></i> 立山架空索道 + 黑部登山纜車
+              <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
+                <span class="text-slate-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-cable-car text-cyan-400"></i> 立山空中索道 + 黑部登山纜車
                 </span>
-                <span class="text-amber-400 font-mono font-bold text-[11px] bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                  乘車歷時：約 15 分鐘
-                </span>
+                <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 15 分鐘</span>
               </div>
 
-              <p class="text-xs text-slate-300 leading-relaxed mt-2.5">
-                搭乘全日本最長無支柱立山空中纜車，如空中移動展望台俯瞰黑部峽谷，隨後轉乘地下纜車陡降至黑部平高山庭園。
+              <p class="text-xs text-slate-300 leading-relaxed mt-2">
+                搭乘全日本最長無支柱空中纜車如大鷲般俯瞰黑部峽谷，再轉乘地下登山纜車陡降至黑部平。
               </p>
 
-              <div class="mt-3.5 pt-2.5 border-t border-slate-700/50 flex items-center justify-between">
-                <button onclick="openSpotModal(3)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-xs text-slate-200 font-semibold flex items-center gap-1.5 transition">
+              <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
+                <button onclick="openSpotModal(3)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
                   <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
                 </button>
-                <button onclick="playSingleSpotSpeech(3)" class="px-3 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 font-semibold flex items-center gap-1.5 transition">
+                <button onclick="playSingleSpotSpeech(3)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -412,45 +341,39 @@
           </div>
 
           <!-- 節點 5：黑部水壩 ➔ 扇澤站 -->
-          <div id="spotCard-4" class="relative pl-7 transition-all duration-300">
-            <div class="absolute left-0 top-3 -translate-x-1/2 w-8 h-8 rounded-full bg-cyan-600 text-white font-black text-xs flex items-center justify-center ring-4 ring-slate-900 shadow-md">
+          <div id="spotCard-4" class="relative pl-6 transition-all duration-300">
+            <div class="absolute left-0 top-3 -translate-x-1/2 w-7 h-7 rounded-full bg-cyan-600 text-white font-bold text-xs flex items-center justify-center ring-4 ring-[#0b1120] shadow-md">
               5
             </div>
 
-            <div class="bg-slate-800/85 border border-slate-700/70 rounded-2xl p-4 shadow-lg">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-lg transition-all">
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center gap-2">
-                    <h3 class="text-base font-bold text-white tracking-wide">黑部水壩 ➔ 扇澤站</h3>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700/70 text-cyan-300 font-mono">1,470m ➔ 1,433m</span>
+                    <h3 class="text-sm font-bold text-white">黑部水壩 ➔ 扇澤站</h3>
+                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-mono">1,470m ➔ 1,433m</span>
                   </div>
-                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">
-                    世紀水庫工程 · 長野側終點
-                  </div>
+                  <div class="text-[11px] text-cyan-400 font-medium mt-0.5">世紀水庫工程 · 長野側終點</div>
                 </div>
-                <div class="w-8 h-8 rounded-xl bg-slate-700/50 flex items-center justify-center text-slate-300 text-xs">
-                  <i class="fa-solid fa-water"></i>
-                </div>
+                <i class="fa-solid fa-water text-slate-500 text-sm"></i>
               </div>
 
-              <div class="mt-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/50 flex items-center justify-between text-xs">
-                <span class="text-slate-300 font-medium flex items-center gap-1.5">
-                  <i class="fa-solid fa-plug-circle-bolt text-emerald-400"></i> 關電隧道電氣巴士 (EV Bus)
+              <div class="mt-2.5 bg-slate-950/70 p-2 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
+                <span class="text-slate-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-bus text-emerald-400"></i> 關電隧道電氣巴士
                 </span>
-                <span class="text-amber-400 font-mono font-bold text-[11px] bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                  乘車歷時：約 16 分鐘
-                </span>
+                <span class="text-amber-400 font-mono font-bold text-[11px]">乘車歷時：約 16 分鐘</span>
               </div>
 
-              <p class="text-xs text-slate-300 leading-relaxed mt-2.5">
-                步行橫跨黑部水壩堤頂感受每秒十餘噸的壯觀洩洪與彩虹，隨後搭乘電氣巴士穿透後立山連峰破碎帶抵達長野扇澤站。
+              <p class="text-xs text-slate-300 leading-relaxed mt-2">
+                步行橫跨黑部水壩堤頂感受每秒十餘噸的壯觀洩洪，隨後搭乘電氣巴士穿透破碎帶抵達扇澤。
               </p>
 
-              <div class="mt-3.5 pt-2.5 border-t border-slate-700/50 flex items-center justify-between">
-                <button onclick="openSpotModal(4)" class="px-3 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-xs text-slate-200 font-semibold flex items-center gap-1.5 transition">
+              <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between">
+                <button onclick="openSpotModal(4)" class="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
                   <i class="fa-solid fa-circle-info text-cyan-400"></i> 站點全解說
                 </button>
-                <button onclick="playSingleSpotSpeech(4)" class="px-3 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 font-semibold flex items-center gap-1.5 transition">
+                <button onclick="playSingleSpotSpeech(4)" class="px-3 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-xs text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5">
                   <i class="fa-solid fa-play text-xs"></i> 語音導覽
                 </button>
               </div>
@@ -462,11 +385,9 @@
 
     </main>
 
-    <!-- 站點詳情彈窗 Modal -->
+    <!-- Modal 彈窗 -->
     <div id="spotModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-      <div class="bg-slate-900 border border-slate-700 rounded-t-3xl sm:rounded-2xl max-w-md w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-slide-up">
-        
-        <!-- Modal 標題列 -->
+      <div class="bg-slate-900 border border-slate-700 rounded-t-3xl sm:rounded-2xl max-w-md w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-800/50">
           <div>
             <span id="modalSpotBadge" class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">節點詳情</span>
@@ -477,8 +398,7 @@
           </button>
         </div>
 
-        <!-- Modal 滾動內容 -->
-        <div class="p-5 overflow-y-auto space-y-4 text-xs text-slate-300">
+        <div class="p-5 overflow-y-auto space-y-3.5 text-xs text-slate-300">
           <div>
             <h4 class="text-cyan-400 font-bold mb-1 flex items-center gap-1">
               <i class="fa-solid fa-compass"></i> 地理與海拔
@@ -508,41 +428,45 @@
           </div>
         </div>
 
-        <!-- Modal 底部語音控制 -->
-        <div class="p-4 border-t border-slate-800 bg-slate-900/90 flex gap-2">
-          <button id="modalSpeechBtn" onclick="playModalCurrentSpeech()" class="flex-1 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-2">
+        <div class="p-4 border-t border-slate-800 bg-slate-900/90">
+          <button onclick="playModalCurrentSpeech()" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-2">
             <i class="fa-solid fa-volume-high"></i> 播放本站語音解說
           </button>
         </div>
-
       </div>
     </div>
 
-    <!-- 底部固定狀態列 -->
-    <footer class="fixed bottom-0 max-w-md w-full bg-slate-950/95 backdrop-blur-md border-t border-slate-800/80 px-4 py-2 flex items-center justify-between text-[11px] text-slate-400 z-30">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>阿爾卑斯路線全線暢通</span>
+    <!-- 底部常駐播放控制列 -->
+    <footer class="fixed bottom-0 max-w-md w-full bg-[#0b1120]/95 backdrop-blur-md border-t border-slate-800 px-4 py-2.5 flex items-center justify-between text-xs z-30">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-cyan-600/20 text-cyan-400 flex items-center justify-center text-xs border border-cyan-500/30">
+          <i class="fa-solid fa-volume-high"></i>
+        </div>
+        <div>
+          <div class="text-slate-200 font-bold text-[11px]">立山黑部 AI 隨身橫越導航</div>
+          <div class="text-[9px] text-slate-400">點擊站點或全覽按鈕聆聽語音解說</div>
+        </div>
       </div>
-      <span class="font-mono text-slate-500">Alpine Traverse v3.1</span>
+      <button onclick="stopAllSpeech()" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+        <i class="fa-solid fa-stop text-[10px]"></i>
+      </button>
     </footer>
 
   </div>
 
-  <!-- JavaScript 邏輯完整定義 -->
   <script>
-    // 站點資料完整定義 (富山立山站 ➔ 長野扇澤站)
+    // 站點資料
     const spotsData = [
       {
         id: 0,
         name: "立山站 (Tateyama Station)",
         altitude: "475 m",
         temp: "約 21°C",
-        wear: "輕便長袖即可",
-        vehicle: "立山登山纜車 (Tateyama Cable Car) ➔ 乘車約 7 分鐘",
-        desc: "阿爾卑斯山脈路線富山端的大門起點。由此搭乘斜度極大的鋼索登山纜車直攀美女平，沿途可回望富山平原漸次隱沒於山嵐之中。",
-        notice: "富山電鐵換乘纜車需注意檢票口人潮，持有預約票券請提前 15 分鐘於閘口排隊準備。",
-        speechText: "立山站標高 475 公尺，是富山側的起點。我們即將搭乘傾斜度極大的登山纜車直上美女平，車程約 7 分鐘，請備妥乘車憑證。"
+        wear: "輕便長袖",
+        vehicle: "立山登山纜車 ➔ 乘車約 7 分鐘",
+        desc: "阿爾卑斯山脈路線富山端的大門起點。由此搭乘斜度極大的登山纜車直攀美女平，沿途欣賞平原漸次沒入山林。",
+        notice: "富山電鐵換乘纜車需注意檢票人潮，持預約票券請提前 15 分鐘至閘口準備。",
+        speechText: "立山站標高 475 公尺，是富山側的起點。搭乘登山纜車直上美女平，車程約 7 分鐘，請備妥乘車憑證。"
       },
       {
         id: 1,
@@ -550,21 +474,21 @@
         altitude: "977 m ~ 1,930 m",
         temp: "約 14°C",
         wear: "防風薄外套",
-        vehicle: "立山高原巴士 (Tateyama Highland Bus) ➔ 乘車約 50 分鐘",
-        desc: "穿越日本屈指可數的原始巨木林，可見巨大美女杉與山毛櫸。隨後進入彌陀原廣闊的高原濕地，初秋時節草紅葉轉黃，並可遠眺稱名瀑布的壯闊深谷。",
-        notice: "山區巴士車程約 50 分鐘且山路多彎道，容易暈車者請提前準備乘車藥物，並於車內繫好安全帶。",
-        speechText: "美女平至彌陀原段，我們將搭乘高原巴士攀升近一千公尺。沿途可欣賞千年生態巨木與高原草紅葉，視野漸次開闊。"
+        vehicle: "立山高原巴士 ➔ 乘車約 50 分鐘",
+        desc: "穿越原生巨木林與彌陀原廣闊的高原濕地。初秋草紅葉轉黃，並可遠眺稱名瀑布的壯闊峽谷。",
+        notice: "高原巴士車程約 50 分鐘且山路多彎，易暈車者請提前準備藥物並繫好安全帶。",
+        speechText: "美女平至彌陀原段，搭乘高原巴士攀升近千公尺，沿途欣賞千年生態巨木與高原草紅葉。"
       },
       {
         id: 2,
         name: "室堂頂點 (Murodo)",
         altitude: "2,450 m (最高點)",
         temp: "約 8°C ~ 9°C",
-        wear: "保暖內層 + 防風防雨外套 (洋蔥式必備)",
-        vehicle: "立山隧道無軌電車 (Trolley Bus) 前往大觀峰 ➔ 乘車約 10 分鐘",
-        desc: "整條阿爾卑斯路線的最高峰與心臟樞紐。可漫步至御庫裏池（みくりが池）欣賞碧藍火山湖泊映照立山連峰的絕美倒影，此處亦是國寶雷鳥的珍貴棲息地。",
-        notice: "室堂海拔達 2,450 公尺，氣溫經常驟降至 10 度以下且風力強勁。步道多為高低不平的石板階梯，請放慢步行節奏以防高山反應。",
-        speechText: "歡迎抵達全線最高點，標高 2,450 公尺的室堂。此處風大低溫，請務必穿著防風保暖衣物。漫步御庫裏池畔時，不妨仔細尋找雷鳥的蹤影。"
+        wear: "保暖夾克 + 洋蔥式防風層",
+        vehicle: "立山隧道無軌電車 ➔ 乘車約 10 分鐘",
+        desc: "全線最高峰與心臟樞紐。漫步御庫裏池欣賞碧藍火山湖泊倒影，尋找國寶野生雷鳥足跡。",
+        notice: "海拔高達 2,450 公尺，氣溫經常在 10 度以下。步道為石板路，請放慢步行步調以防高山反應。",
+        speechText: "抵達標高 2,450 公尺的室堂。此處風大低溫，請穿著防風保暖衣物，漫步御庫裏池畔時可尋找雷鳥蹤影。"
       },
       {
         id: 3,
@@ -572,10 +496,10 @@
         altitude: "2,316 m ➔ 1,828 m",
         temp: "約 12°C",
         wear: "防風夾克",
-        vehicle: "立山架空索道 (Ropeway 7分) + 黑部登山纜車 (Cable Car 5分) ➔ 共約 15 分鐘",
-        desc: "從大觀峰展望台可俯瞰壯麗的黑部湖與後立山連峰。搭乘全日本最長、中間全無任何支柱的空中纜車懸空滑降至黑部平，視野如同空中大鷲俯瞰壯麗峽谷。",
-        notice: "大觀峰屋頂展望台風勢強大，拍照請務必拿穩隨身手機與配件；隨後換乘的黑部登山纜車為全地下陡坡隧道，氣溫偏低。",
-        speechText: "大觀峰至黑部平段，我們將搭乘全日本最長的無支柱立山架空索道，宛如移動展望台滑降黑部峽谷，壯觀無比。"
+        vehicle: "立山空中索道 + 黑部登山纜車 ➔ 共約 15 分鐘",
+        desc: "搭乘全日本最長無支柱空中纜車，如空中移動展望台俯瞰黑部峽谷，再轉乘地下登山纜車陡降至黑部平。",
+        notice: "大觀峰屋頂展望台風勢強大，拍照請拿穩手機；地下登山纜車氣溫偏低。",
+        speechText: "大觀峰至黑部平段，搭乘無支柱空中索道滑降黑部峽谷，視野壯觀無比。"
       },
       {
         id: 4,
@@ -583,10 +507,10 @@
         altitude: "1,470 m ➔ 1,433 m",
         temp: "約 16°C",
         wear: "休閒舒適長袖",
-        vehicle: "步行過壩頂 (約 15 分鐘) + 關電隧道電氣巴士 (EV Bus 16 分鐘)",
-        desc: "日本第一高的拱形世紀大水壩（壩高 186 公尺），9 月下旬仍為壯觀的觀光洩洪期，每秒噴湧十餘噸水霧。步行橫跨壩頂後，搭乘安靜環保的電氣巴士穿透破裂帶抵達長野縣扇澤站。",
-        notice: "水壩堤頂步道長度約 500 公尺，請依順行方向走至黑部湖站搭乘電氣巴士，務必留意扇澤方向的末班車時間。",
-        speechText: "抵達世紀工程黑部水壩。漫步壩頂欣賞每秒十多噸水霧洩洪的磅礴景致後，搭乘電氣巴士穿透後立山斷層，抵達長野側終點扇澤站。"
+        vehicle: "步行水壩頂 (15 分) + 關電隧道電氣巴士 (16 分)",
+        desc: "日本第一高拱形水壩，步行橫跨堤頂感受每秒十餘噸的壯觀洩洪，隨後搭乘電氣巴士穿透破碎帶抵達長野扇澤站。",
+        notice: "水壩堤頂長度約 500 公尺，請依順行方向走至黑部湖站，留意扇澤方向末班車時間。",
+        speechText: "抵達黑部水壩，漫步壩頂欣賞壯觀洩洪後，搭乘電氣巴士穿透後立山斷層抵達終點扇澤站。"
       }
     ];
 
@@ -607,91 +531,70 @@
       calculateExchange();
     }
 
-    // 點擊海拔儀表聯動
+    // 站點選取與同步滾動
     function selectSpot(index) {
       const card = document.getElementById(`spotCard-${index}`);
       if (card) {
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // 增加聚焦發光樣式
-        const innerCard = card.querySelector('div.bg-slate-800\\/85, div.bg-gradient-to-b');
+        const innerCard = card.querySelector('div.bg-slate-900\\/90');
         if (innerCard) {
           innerCard.classList.add('highlight-card');
-          setTimeout(() => {
-            innerCard.classList.remove('highlight-card');
-          }, 1500);
+          setTimeout(() => innerCard.classList.remove('highlight-card'), 1500);
         }
-
-        // 同步更新頂部儀表資訊
-        const data = spotsData[index];
-        document.getElementById('statTemp').innerText = data.temp;
-        document.getElementById('statWear').innerText = data.wear;
+        document.getElementById('statTemp').innerHTML = `${spotsData[index].temp} <span class="text-[10px] font-normal text-slate-400">| ${spotsData[index].wear}</span>`;
       }
     }
 
-    // 全線總覽音訊播報
+    // 全覽語音
     function toggleOverviewSpeech() {
       if (!synth) {
-        alert("您的瀏覽器暫不支援語音合成功能。");
+        alert("瀏覽器暫不支援語音功能");
         return;
       }
-
       if (isOverviewSpeaking || synth.speaking) {
-        synth.cancel();
-        resetOverviewButton();
+        stopAllSpeech();
         return;
       }
-
-      const overviewText = "歡迎體驗立山黑部阿爾卑斯路線。今日我們將由富山側的立山站出發，搭乘六大登山交通載具，一步步攀登至標高 2,450 公尺的室堂最高峰，再越過險峻的黑部峽谷與黑部水壩，橫越抵達長野側的扇澤站。高山氣候多變且溫差超過十度以上，請隨時注意洋蔥式穿著與末班車搭乘時間，祝您擁有壯麗難忘的高山穿越之旅。";
-
-      const utterance = new SpeechSynthesisUtterance(overviewText);
-      utterance.lang = 'zh-TW';
-      utterance.rate = 0.95;
-
-      utterance.onstart = () => {
+      const txt = "歡迎體驗立山黑部阿爾卑斯路線。今日由富山側立山站出發，逐步攀登至標高 2,450 公尺的室堂最高峰，再經黑部水壩抵達長野側扇澤站。請隨時注意山區溫差與末班車轉乘時間。";
+      const u = new SpeechSynthesisUtterance(txt);
+      u.lang = 'zh-TW';
+      u.rate = 0.95;
+      u.onstart = () => {
         isOverviewSpeaking = true;
         document.getElementById('btnOverviewText').innerText = "停止";
-        document.getElementById('btnOverviewIcon').className = "fa-solid fa-square text-autumn-400";
       };
-
-      utterance.onend = utterance.onerror = () => {
-        resetOverviewButton();
+      u.onend = u.onerror = () => {
+        stopAllSpeech();
       };
-
-      synth.speak(utterance);
+      synth.speak(u);
     }
 
-    function resetOverviewButton() {
+    function stopAllSpeech() {
+      if (synth) synth.cancel();
       isOverviewSpeaking = false;
-      document.getElementById('btnOverviewText').innerText = "播報";
-      document.getElementById('btnOverviewIcon').className = "fa-solid fa-volume-high";
+      document.getElementById('btnOverviewText').innerText = "全覽";
     }
 
-    // 單站語音導覽播放
+    // 單站語音
     function playSingleSpotSpeech(index) {
       if (!synth) return;
-      synth.cancel();
-      resetOverviewButton();
-
-      const data = spotsData[index];
-      const utterance = new SpeechSynthesisUtterance(data.speechText);
-      utterance.lang = 'zh-TW';
-      utterance.rate = 0.95;
-      synth.speak(utterance);
+      stopAllSpeech();
+      const u = new SpeechSynthesisUtterance(spotsData[index].speechText);
+      u.lang = 'zh-TW';
+      u.rate = 0.95;
+      synth.speak(u);
     }
 
-    // Modal 開啟與綁定
+    // Modal
     function openSpotModal(index) {
       currentModalIndex = index;
       const data = spotsData[index];
-
       document.getElementById('modalSpotBadge').innerText = `節點 ${index + 1} 詳情`;
       document.getElementById('modalSpotTitle').innerText = data.name;
-      document.getElementById('modalSpotAlt').innerText = `標高高度：${data.altitude} ｜ 當地預估氣溫：${data.temp}`;
+      document.getElementById('modalSpotAlt').innerText = `高度：${data.altitude} ｜ 氣溫：${data.temp}`;
       document.getElementById('modalSpotVehicle').innerText = data.vehicle;
       document.getElementById('modalSpotDesc').innerText = data.desc;
       document.getElementById('modalSpotNotice').innerText = data.notice;
-
       document.getElementById('spotModal').classList.remove('hidden');
     }
 
@@ -704,15 +607,11 @@
       playSingleSpotSpeech(currentModalIndex);
     }
 
-    // 點擊 Modal 外圍關閉
     window.addEventListener('click', (e) => {
       const modal = document.getElementById('spotModal');
-      if (e.target === modal) {
-        closeSpotModal();
-      }
+      if (e.target === modal) closeSpotModal();
     });
 
-    // 初始化計算匯率
     window.onload = () => {
       calculateExchange();
     };
