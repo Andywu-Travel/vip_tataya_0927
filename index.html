@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>立山黑部阿爾卑斯穿越導覽 | 09/27 單日全線橫越</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            alpine: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+              950: '#031726'
+            },
+            autumn: {
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+              amber: '#d97706'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0284c7;
+      border-radius: 9999px;
+    }
+    /* Pulse glow for live elements */
+    .glow-orange {
+      box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+    }
+    .glow-blue {
+      box-shadow: 0 0 15px rgba(2, 132, 199, 0.35);
+    }
+    /* Prevent selection on active touch areas */
+    .no-select {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex justify-center items-start sm:py-8 sm:px-4">
+
+  <!-- Mobile Container Wrapper: Phone mockup on desktop, fluid on mobile -->
+  <div class="w-full max-w-md bg-slate-900 min-h-screen sm:min-h-[880px] sm:max-h-[920px] sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-800 flex flex-col relative">
+
+    <!-- Top Status Bar & App Header -->
+    <header class="bg-gradient-to-br from-slate-900 via-alpine-900 to-indigo-950 pt-5 pb-4 px-4 border-b border-slate-800 relative shadow-lg">
+      <div class="flex items-center justify-between mb-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-autumn-500/20 text-autumn-400 border border-autumn-500/30">
+          <i class="fa-solid fa-mountain-sun text-[11px]"></i> 2026/09/27 初秋橫越
+        </span>
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+          <i class="fa-solid fa-compass text-[11px] animate-spin-slow"></i> 全線貫通
+        </span>
+      </div>
+
+      <div class="flex items-start justify-between">
+        <div>
+          <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+            立山黑部阿爾卑斯
+            <span class="text-xs bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded font-mono font-bold">穿越隨行</span>
+          </h1>
+          <p class="text-xs text-slate-300 mt-0.5 flex items-center gap-1">
+            <i class="fa-solid fa-route text-sky-400"></i>
+            <span>09/27 扇澤 ➔ 立山站 · 全程橫越</span>
+          </p>
+        </div>
+        <button id="btnPlayAllIntro" class="no-select flex flex-col items-center justify-center bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white w-11 h-11 rounded-2xl shadow-md border border-sky-400/40 transition active:scale-95 glow-blue" title="播放全覽語音導覽">
+          <i id="allIntroIcon" class="fa-solid fa-headphones text-sm"></i>
+          <span class="text-[9px] font-medium scale-90">導覽</span>
+        </button>
+      </div>
+
+      <!-- Environment & Layering Alert Badge -->
+      <div class="mt-3 bg-slate-800/80 backdrop-blur rounded-xl p-2.5 border border-slate-700/70 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-sky-950 flex items-center justify-center text-sky-400 border border-sky-800">
+            <i class="fa-solid fa-cloud-sun text-base"></i>
+          </div>
+          <div>
+            <div class="text-[11px] text-slate-400">室堂山頂即時預估</div>
+            <div class="text-sm font-bold text-white tracking-wide">9°C <span class="text-xs font-normal text-slate-300">| 初秋晴時多雲</span></div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            <i class="fa-solid fa-shirt"></i> 洋蔥式防風穿著
+          </span>
+          <div class="text-[10px] text-slate-400 mt-0.5">高低溫差逾 10°C</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quick Utility Bar / Accordion -->
+    <div class="bg-slate-900/90 px-4 py-3 border-b border-slate-800 space-y-3">
+      <!-- Altitude Difference Card -->
+      <div class="bg-gradient-to-r from-slate-800/90 via-slate-850 to-indigo-950/70 rounded-xl p-2.5 border border-slate-700/60 shadow-sm">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-200 mb-1.5">
+          <span class="flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-line text-sky-400"></i> 海拔落差軌跡
+          </span>
+          <span class="text-[11px] text-autumn-400 font-mono font-bold">最高高差: +1,975m</span>
+        </div>
+        
+        <!-- Elevation Mini Chart / Step Indicator -->
+        <div class="grid grid-cols-5 gap-1 text-center text-[10px]">
+          <div class="bg-slate-800/80 p-1 rounded border border-slate-700">
+            <div class="text-slate-400 font-medium">扇澤</div>
+            <div class="font-bold text-sky-300">1,433m</div>
+          </div>
+          <div class="bg-slate-800/80 p-1 rounded border border-slate-700">
+            <div class="text-slate-400 font-medium">黑部水壩</div>
+            <div class="font-bold text-sky-300">1,470m</div>
+          </div>
+          <div class="bg-slate-800/80 p-1 rounded border border-slate-700">
+            <div class="text-slate-400 font-medium">大觀峰</div>
+            <div class="font-bold text-sky-300">2,316m</div>
+          </div>
+          <div class="bg-autumn-500/20 p-1 rounded border border-autumn-500/40 glow-orange">
+            <div class="text-autumn-300 font-bold">室堂頂點</div>
+            <div class="font-extrabold text-white">2,450m</div>
+          </div>
+          <div class="bg-slate-800/80 p-1 rounded border border-slate-700">
+            <div class="text-slate-400 font-medium">立山站</div>
+            <div class="font-bold text-sky-300">475m</div>
+          </div>
+        </div>
+        <div class="mt-2 text-[10px] text-slate-400 flex items-center justify-between">
+          <span><i class="fa-solid fa-triangle-exclamation text-amber-400 mr-1"></i>注意高原反應，請放慢步行節奏</span>
+          <span class="text-slate-400">穿著: 保暖夾克+防風層</span>
+        </div>
+      </div>
+
+      <!-- Currency Quick Converter (JPY -> TWD) -->
+      <div class="bg-slate-850 rounded-xl p-2.5 border border-slate-700/60 shadow-sm">
+        <div class="flex items-center justify-between text-xs mb-2">
+          <div class="font-semibold text-slate-200 flex items-center gap-1.5">
+            <i class="fa-solid fa-yen-sign text-emerald-400"></i> 日幣 🪞 台幣 速算器
+          </div>
+          <div class="flex items-center gap-1 text-[11px] text-slate-400">
+            <span>匯率:</span>
+            <input type="number" id="exchangeRate" value="0.215" step="0.001" class="w-14 bg-slate-900 border border-slate-700 text-sky-300 rounded px-1 text-center font-mono focus:outline-none focus:border-sky-500">
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <div class="relative flex-1">
+            <input type="number" id="inputJpy" value="3000" placeholder="輸入日幣 JPY" class="w-full bg-slate-900 border border-slate-700 rounded-lg py-1.5 pl-7 pr-2 text-sm font-bold text-white focus:outline-none focus:ring-1 focus:ring-sky-500 font-mono">
+            <span class="absolute left-2.5 top-2 text-xs text-slate-500 font-bold">¥</span>
+          </div>
+          <i class="fa-solid fa-arrow-right-arrow-left text-xs text-slate-500"></i>
+          <div class="flex-1 bg-slate-900 border border-slate-700/80 rounded-lg py-1.5 px-3 flex items-center justify-between">
+            <span class="text-xs text-slate-400 font-bold">NT$</span>
+            <span id="outputTwd" class="text-sm font-extrabold text-autumn-400 font-mono">645</span>
+          </div>
+        </div>
+
+        <!-- Quick selection pills -->
+        <div class="flex items-center justify-between mt-2 gap-1.5">
+          <button onclick="setJpyPreset(1000)" class="flex-1 py-1 text-[11px] rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-mono transition">¥1,000</button>
+          <button onclick="setJpyPreset(3000)" class="flex-1 py-1 text-[11px] rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-mono transition">¥3,000</button>
+          <button onclick="setJpyPreset(5000)" class="flex-1 py-1 text-[11px] rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-mono transition">¥5,000</button>
+          <button onclick="setJpyPreset(10000)" class="flex-1 py-1 text-[11px] rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-mono transition">¥10,000</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Scrollable Timeline Content -->
+    <main class="flex-1 overflow-y-auto px-4 py-3 space-y-3 pb-8">
+      <div class="flex items-center justify-between px-1">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-timeline text-sky-400"></i> 09/27 當日穿越節點與 6 大交通工具
+        </h2>
+        <span class="text-[11px] text-slate-400 font-mono">5 大樞紐站</span>
+      </div>
+
+      <!-- Timeline wrapper -->
+      <div id="timelineContainer" class="space-y-3 relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-gradient-to-b before:from-sky-500 before:via-autumn-500 before:to-blue-800">
+        <!-- Station items will be populated by JS -->
+      </div>
+    </main>
+
+    <!-- Sticky Audio Mini-Player / Status Footer -->
+    <div id="audioFooter" class="bg-slate-900/95 backdrop-blur border-t border-slate-800 p-3 px-4 flex items-center justify-between text-xs z-10 shadow-xl">
+      <div class="flex items-center gap-2.5 overflow-hidden">
+        <div id="playingWave" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-sky-400 flex-shrink-0">
+          <i class="fa-solid fa-volume-high text-xs"></i>
+        </div>
+        <div class="truncate">
+          <div id="audioStatusTitle" class="font-bold text-white text-xs truncate">立山黑部 AI 語音隨行播報</div>
+          <div id="audioStatusDesc" class="text-[11px] text-slate-400 truncate">點擊各站點或全覽播放語音導航</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <button id="btnStopAudio" onclick="stopAllAudio()" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition text-xs" title="停止語音">
+          <i class="fa-solid fa-stop"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Station Detail Modal Dialog -->
+    <div id="detailModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div class="w-full max-w-md bg-slate-900 border border-slate-700 rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl animate-in slide-in-from-bottom duration-200">
+        
+        <!-- Modal Header -->
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-slate-900 to-indigo-950">
+          <div class="flex items-center gap-2">
+            <span id="modalNumberBadge" class="w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs font-bold font-mono">1</span>
+            <div>
+              <h3 id="modalTitle" class="font-bold text-white text-base leading-tight">站點詳情</h3>
+              <p id="modalSubtitle" class="text-[11px] text-slate-400">轉乘與景點重點提示</p>
+            </div>
+          </div>
+          <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Modal Body (Scrollable) -->
+        <div class="p-4 space-y-3.5 overflow-y-auto text-xs text-slate-300">
+          
+          <!-- Key Metrics Grid -->
+          <div class="grid grid-cols-3 gap-2">
+            <div class="bg-slate-800/80 p-2 rounded-xl border border-slate-700/60">
+              <div class="text-[10px] text-slate-400">出發時間</div>
+              <div id="modalTime" class="font-mono font-bold text-sky-400 text-sm">08:30</div>
+            </div>
+            <div class="bg-slate-800/80 p-2 rounded-xl border border-slate-700/60">
+              <div class="text-[10px] text-slate-400">站點海拔</div>
+              <div id="modalAltitude" class="font-mono font-bold text-autumn-400 text-sm">1,433m</div>
+            </div>
+            <div class="bg-slate-800/80 p-2 rounded-xl border border-slate-700/60">
+              <div class="text-[10px] text-slate-400">銜接載具</div>
+              <div id="modalTransit" class="font-bold text-white text-xs truncate">電氣巴士</div>
+            </div>
+          </div>
+
+          <!-- Highlight Intro Banner -->
+          <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
+            <div class="font-bold text-white text-xs mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-compass text-sky-400"></i> 地理與景觀亮點
+            </div>
+            <p id="modalHighlights" class="text-slate-300 leading-relaxed text-[11px]"></p>
+          </div>
+
+          <!-- Deep Explanation / Historical note -->
+          <div class="bg-slate-850 p-3 rounded-xl border border-slate-700/40">
+            <div class="font-bold text-white text-xs mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-info text-autumn-400"></i> 深入解說 & 穿越指引
+            </div>
+            <p id="modalDescription" class="text-slate-300 leading-relaxed text-[11px] whitespace-pre-line"></p>
+          </div>
+
+          <!-- Safety / Practical Tips -->
+          <div class="bg-amber-950/30 p-3 rounded-xl border border-amber-600/30">
+            <div class="font-bold text-amber-300 text-xs mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved text-amber-400"></i> 行程提醒與安全守則
+            </div>
+            <p id="modalTips" class="text-amber-200/90 leading-relaxed text-[11px]"></p>
+          </div>
+
+          <!-- Modal Audio Button -->
+          <div class="pt-1">
+            <button id="btnModalPlayAudio" onclick="triggerModalAudio()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition active:scale-98">
+              <i id="modalAudioIcon" class="fa-solid fa-volume-high"></i>
+              <span id="modalAudioText">聆聽此站語音導覽</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // 5 Major Core Stations on the 09/27 Traverse Route (Ogizawa -> Tateyama Station)
+    // Featuring 6 Unique Alpine Transit Modes
+    const STATIONS_DATA = [
+      {
+        id: "ogizawa",
+        step: 1,
+        time: "08:30",
+        name: "扇澤站 (Ogizawa)",
+        altitude: "1,433m",
+        transitIcon: "fa-bus-simple",
+        transitName: "關電隧道電氣巴士",
+        transitDuration: "約 16 分鐘",
+        highlightTag: "長野側門戶 · 穿越斷層碎裂帶",
+        summary: "日本最艱鉅工程！搭乘零排放電氣巴士穿透後立山連峰的岩體與赤澤岳隧道。",
+        highlights: "從長野側進入立山黑部阿爾卑斯路線的起點門戶。由此換乘零污染的關電隧道電氣巴士，貫通險峻的赤澤岳地底。",
+        description: "本段路線為昔日建設黑部水壩時運送建材的關鍵命脈。巴士將穿越長達 5.4 公里的隧道，其中最令人震撼的是當初工程開鑿時耗費數月才克服的『破裂帶（破砕帯）』，隧道壁面目前仍可見特殊藍色燈光標記湧水帶，感受黑部工程的壯闊艱辛。",
+        tips: "1. 扇澤站驗票閘口排隊人潮較多，請提早 15 分鐘至乘車處備妥乘車憑證。\n2. 隧道內氣溫偏低（約 10-12°C），進入車廂前建議披上外套。",
+        audioText: "歡迎來到扇澤站，這裡是阿爾卑斯路線長野側的起點，標高 1433 公尺。我們即將搭乘關電隧道電氣巴士，穿越險峻的赤澤岳。請留意隧道中以藍色燈光標示的破碎帶，那是當年水壩工程中最艱險的湧水地質奇蹟。"
+      },
+      {
+        id: "kurobe_dam",
+        step: 2,
+        time: "09:10",
+        name: "黑部水壩 ＆ 黑部湖",
+        altitude: "1,470m",
+        transitIcon: "fa-person-walking",
+        transitName: "步行橫越壩頂步道",
+        transitDuration: "徒步約 15-20 分鐘",
+        highlightTag: "日本第一高壩 · 壯觀觀光洩洪",
+        summary: "高達 186 公尺的世紀工程！9 月下旬正是觀光放水季，近距離感受每秒數十噸飛瀑水氣與彩虹。",
+        highlights: "走在寬廣的弧形拱壩壩頂，俯瞰翡翠綠的黑部湖與深邃的黑部峽谷，初秋清涼的水霧撲面而來。",
+        description: "黑部水壩是日本代表性的拱形水壩，高 186 公尺，為全日本第一高。每年 6 月下旬至 10 月中旬進行氣勢磅礡的觀光洩洪，每秒噴湧超過 10 噸的強烈水柱。09/27 到訪正逢放水期，若遇晴天，壩底常可見到耀眼的雙彩虹。\n橫越水壩後將步行穿過黑部湖隧道，抵達地下化的黑部登山纜車站。",
+        tips: "1. 展望台共有 220 階階梯，體力許可強烈建議登頂俯瞰全景。\n2. 壩頂風勢通常極為強勁，請收好帽子並備妥防風薄外套。\n3. 注意黑部湖站發車時刻，避免在湖畔步道停留過久錯過班次。",
+        audioText: "我們現在抵達了黑部水壩，高 186 公尺，是全日本最高的世紀拱型大壩。9月下旬正值壯觀的洩洪季節，水霧在陽光下常會形成美麗的彩虹。我們將徒步走過壩頂，前往黑部湖站換乘黑部登山纜車。"
+      },
+      {
+        id: "kurobedaira_daikanbo",
+        step: 3,
+        time: "10:30",
+        name: "黑部平 ➔ 大觀峰",
+        altitude: "1,828m ➔ 2,316m",
+        transitIcon: "fa-cable-car",
+        transitName: "黑部登山纜車 ＋ 立山架空索道",
+        transitDuration: "約 5分 + 7分鐘",
+        highlightTag: "全日本最長無支柱鋼索纜車",
+        summary: "猶如懸掛於空中的移動觀景台！一根支柱都沒有的空中索道，360 度俯瞰後立山連峰與黑部峽谷。",
+        highlights: "先搭乘全線地下化的黑部登山纜車抵達黑部平，再換乘著名的無支柱立山架空索道（Ropeway）直登大觀峰斷崖。",
+        description: "黑部平往大觀峰的立山空中索道，全長 1,710 公尺、高低差近 500 公尺，為保護脆弱的高山自然生態，全線完全未設立任何支柱，宛如一顆在空中滑行的玻璃珠。\n9 月下旬此區域正是『草紅葉』與初秋落葉松轉金黃的序幕，從大觀峰二樓露台能鳥瞰整座翡翠般的黑部湖倒映於深谷。",
+        tips: "1. 立山索道每班載客約 80 人，進入車廂請盡量靠窗以獲取最佳攝影視角。\n2. 大觀峰站建在峭壁之上，頂樓雲上展望台風大且溫度降至約 11°C，注意頭部保暖。",
+        audioText: "現在我們將由黑部平搭乘全日本最長、且完全沒有支柱的立山架空索道，攀升至標高 2316 公尺的大觀峰。請放眼窗外，初秋的阿爾卑斯山谷與湛藍的黑部湖就在您的腳下延展開來。"
+      },
+      {
+        id: "murodo",
+        step: 4,
+        time: "12:00",
+        name: "室堂平 (Murodo) 頂點",
+        altitude: "2,450m (全線最高點)",
+        transitIcon: "fa-bus",
+        transitName: "立山隧道無軌/電氣巴士",
+        transitDuration: "穿透立山主峰 10分鐘",
+        highlightTag: "阿爾卑斯最高樞紐 · 御庫裏池",
+        summary: "路線的最高峰！碧藍的火山湖『御庫裏池』、地獄谷蒸氣、立山玉殿名泉，以及尋找冰河孑遺神鳥『雷鳥』。",
+        highlights: "置身於標高 3000 公尺級立山三山（雄山、大汝山、富士之折立）環抱下的高原盆地。享用高山便當補給，漫步環湖步道。",
+        description: "室堂是整條阿爾卑斯路線的最高核心，此時初秋氣溫約 8-10°C，周遭的草甸已轉化為溫暖的金黃色與深紅色。著名的『御庫裏池（みくりが池）』水深 15 米，清澈如鏡，倒映著雄山倒影。\n這裡也是日本特別天然紀念物『雷鳥（Ptarmigan）』的主要棲息地。室堂站內亦有阿爾卑斯名水『立山玉殿湧水』，可自備水壺免費裝取清冽甘甜的高山冰雪融水。",
+        tips: "1. 此處海拔 2,450 公尺，請放慢腳步避免急性高山症（AMS），多補充水分。\n2. 石板步道有些微起伏，請穿著抓地力良好的健行鞋，切勿跨越保護欄杆。\n3. 注意高原紫外線強烈，建議配戴太陽眼鏡與塗抹防曬。",
+        audioText: "我們已經抵達阿爾卑斯路線的最高頂點——室堂平，標高 2450 公尺。這裡氣溫約 9 度，周圍被立山三山環繞。建議您前往御庫裏池欣賞如鏡的湖水倒影，並注意放慢呼吸與腳步，細細感受雲端仙境。"
+      },
+      {
+        id: "bijodaira_tateyama",
+        step: 5,
+        time: "14:30",
+        name: "美女平 ➔ 立山站 (富山側終點)",
+        altitude: "977m ➔ 475m",
+        transitIcon: "fa-train-subway",
+        transitName: "立山高原巴士 ＋ 立山登山纜車",
+        transitDuration: "約 50分 + 7分鐘",
+        highlightTag: "彌陀原濕原 · 穿越巨木原始林",
+        summary: "從 2,450m 垂直降落至富山平原！行經稱名瀑布遠景、彌陀原高原濕原與美女平原始巨大雪松林。",
+        highlights: "高原巴士沿著蜿蜒的立山收費道路緩降，窗外風景由高山荒原轉變為茂密的針闊葉混交林與高山濕原。",
+        description: "從室堂出發搭乘立山高原巴士，沿途可眺望日本落差第一的『稱名瀑布（350m 落差）』遠景以及彌陀原的池塘群（餓鬼田）。\n抵達美女平後，可欣賞站前高聳入雲的『美女杉』巨木林。最後換乘 7 分鐘的立山登山纜車直降至富山側的立山車站，完成壯麗的單日橫越阿爾卑斯創舉！",
+        tips: "1. 高原巴士車程約 50 分鐘，沿途彎道多，若容易暈車請提早服用暈車藥。\n2. 抵達立山站後即可銜接富山地方鐵道前往富山市區或宇奈月溫泉。",
+        audioText: "最後一段旅程，我們將搭乘高原巴士穿越彌陀原高原濕原下降至美女平，並換乘立山登山纜車抵達富山側的立山站。恭喜您完成了今日壯觀的立山黑部橫越之旅！"
+      }
+    ];
+
+    // 全覽廣播介紹詞
+    const FULL_TOUR_TEXT = "大家好！歡迎參加 2026 年 9 月 27 日立山黑部阿爾卑斯路線全線穿越之旅。今天我們將從長野縣的扇澤出發，歷經 6 種獨特的高山交通工具，包括關電隧道電氣巴士、黑部登山纜車、立山空中索道，攀升至最高海拔 2450 公尺的室堂平，再沿高原巴士降落至富山縣的立山站。今日室堂預估氣溫僅有 9 度左右，高低溫差超過 10 度，請務必做好洋蔥式防風保暖，並放慢腳步，享受初秋阿爾卑斯的壯麗風光！";
+
+    // Speech Synthesis State
+    let synth = window.speechSynthesis;
+    let isPlaying = false;
+    let currentActiveStationId = null;
+
+    // DOM Elements
+    const timelineContainer = document.getElementById('timelineContainer');
+    const inputJpy = document.getElementById('inputJpy');
+    const exchangeRate = document.getElementById('exchangeRate');
+    const outputTwd = document.getElementById('outputTwd');
+    const audioStatusTitle = document.getElementById('audioStatusTitle');
+    const audioStatusDesc = document.getElementById('audioStatusDesc');
+    const playingWave = document.getElementById('playingWave');
+    const btnPlayAllIntro = document.getElementById('btnPlayAllIntro');
+    const allIntroIcon = document.getElementById('allIntroIcon');
+
+    // Render timeline stations into DOM
+    function renderTimeline() {
+      timelineContainer.innerHTML = '';
+      STATIONS_DATA.forEach((station, index) => {
+        const isApex = station.id === 'murodo';
+        const cardHtml = `
+          <div class="relative pl-10 group" id="station-card-${station.id}">
+            <!-- Circle Badge on timeline -->
+            <div class="absolute left-3 -translate-x-1/2 top-3 w-5 h-5 rounded-full ${isApex ? 'bg-autumn-500 ring-4 ring-autumn-500/30 glow-orange' : 'bg-sky-600 ring-4 ring-sky-900/60'} text-white flex items-center justify-center text-[10px] font-bold z-10">
+              ${station.step}
+            </div>
+
+            <!-- Card Box -->
+            <div class="bg-slate-800/90 hover:bg-slate-800 rounded-2xl p-3.5 border ${isApex ? 'border-autumn-500/40' : 'border-slate-700/70'} shadow-md transition duration-200">
+              
+              <!-- Time and Altitude Header -->
+              <div class="flex items-center justify-between text-xs mb-1.5">
+                <span class="inline-flex items-center gap-1 font-mono font-bold text-sky-400 bg-sky-950/70 px-2 py-0.5 rounded border border-sky-800/50">
+                  <i class="fa-regular fa-clock text-[10px]"></i> ${station.time}
+                </span>
+                <span class="font-mono text-xs font-semibold ${isApex ? 'text-amber-400' : 'text-slate-400'}">
+                  <i class="fa-solid fa-mountain text-[10px] mr-0.5"></i> ${station.altitude}
+                </span>
+              </div>
+
+              <!-- Title & Key Highlight Tag -->
+              <div class="mb-1">
+                <h3 class="text-sm font-bold text-white tracking-wide">${station.name}</h3>
+                <span class="inline-block text-[10px] text-autumn-400 font-medium">${station.highlightTag}</span>
+              </div>
+
+              <!-- Transit Info Pill -->
+              <div class="my-2 bg-slate-900/80 rounded-lg p-2 border border-slate-700/50 flex items-center justify-between text-[11px]">
+                <div class="flex items-center gap-2 text-slate-200 truncate">
+                  <i class="fa-solid ${station.transitIcon} text-sky-400 text-xs"></i>
+                  <span class="font-medium truncate">${station.transitName}</span>
+                </div>
+                <span class="text-[10px] text-slate-400 flex-shrink-0 font-mono">${station.transitDuration}</span>
+              </div>
+
+              <!-- Short summary -->
+              <p class="text-xs text-slate-300 leading-snug line-clamp-2 mb-3">
+                ${station.summary}
+              </p>
+
+              <!-- Actions: Details button & Audio button -->
+              <div class="flex items-center gap-2 pt-1 border-t border-slate-700/60">
+                <button onclick="openModal('${station.id}')" class="flex-1 py-1.5 px-2 rounded-xl bg-slate-700/70 hover:bg-slate-700 text-slate-200 text-xs font-medium flex items-center justify-center gap-1.5 transition">
+                  <i class="fa-solid fa-circle-info text-[11px] text-sky-400"></i>
+                  <span>站點全解說</span>
+                </button>
+                <button onclick="toggleStationAudio('${station.id}')" id="audio-btn-${station.id}" class="py-1.5 px-3 rounded-xl bg-sky-600/30 hover:bg-sky-600/50 text-sky-300 border border-sky-500/30 text-xs font-medium flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-volume-high text-[11px]"></i>
+                  <span>語音</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        timelineContainer.insertAdjacentHTML('beforeend', cardHtml);
+      });
+    }
+
+    function calculateCurrency() {
+      const jpy = parseFloat(inputJpy.value) || 0;
+      const rate = parseFloat(exchangeRate.value) || 0.215;
+      const twd = Math.round(jpy * rate);
+      outputTwd.textContent = twd.toLocaleString();
+    }
+
+    function setJpyPreset(amount) {
+      inputJpy.value = amount;
+      calculateCurrency();
+    }
+
+    inputJpy.addEventListener('input', calculateCurrency);
+    exchangeRate.addEventListener('input', calculateCurrency);
+
+    function stopAllAudio() {
+      if (synth) {
+        synth.cancel();
+      }
+      isPlaying = false;
+      currentActiveStationId = null;
+      updateAudioUI(false, "語音播報已停止", "點擊各站點或全覽播放語音導航");
+      resetAllStationButtons();
+    }
+
+    function updateAudioUI(playing, title, desc) {
+      isPlaying = playing;
+      if (playing) {
+        playingWave.classList.add('bg-sky-600', 'text-white', 'animate-pulse');
+        playingWave.classList.remove('bg-slate-800', 'text-sky-400');
+        audioStatusTitle.textContent = title;
+        audioStatusDesc.textContent = desc;
+        allIntroIcon.className = "fa-solid fa-pause text-sm";
+      } else {
+        playingWave.classList.remove('bg-sky-600', 'text-white', 'animate-pulse');
+        playingWave.classList.add('bg-slate-800', 'text-sky-400');
+        audioStatusTitle.textContent = title;
+        audioStatusDesc.textContent = desc;
+        allIntroIcon.className = "fa-solid fa-headphones text-sm";
+      }
+    }
+
+    function resetAllStationButtons() {
+      STATIONS_DATA.forEach(s => {
+        const btn = document.getElementById(`audio-btn-${s.id}`);
+        if (btn) {
+          btn.innerHTML = `<i class="fa-solid fa-volume-high text-[11px]"></i><span>語音</span>`;
+          btn.classList.remove('bg-amber-600', 'text-white');
+        }
+      });
+      const modalAudioBtn = document.getElementById('modalAudioText');
+      if (modalAudioBtn) {
+        modalAudioBtn.textContent = '聆聽此站語音導覽';
+        document.getElementById('modalAudioIcon').className = 'fa-solid fa-volume-high';
+      }
+    }
+
+    function speakText(text, title, desc, onEndCallback) {
+      if (!('speechSynthesis' in window)) {
+        alertFallbackMsg("您的瀏覽器暫未支援語音朗讀功能 (Web Speech API)");
+        return;
+      }
+
+      synth.cancel(); // Stop any pending utterances
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'zh-TW';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+
+      utterance.onstart = () => {
+        updateAudioUI(true, title, desc);
+      };
+
+      utterance.onend = () => {
+        updateAudioUI(false, "播報完畢", "點擊各站點或全覽重新播放");
+        if (onEndCallback) onEndCallback();
+        resetAllStationButtons();
+      };
+
+      utterance.onerror = () => {
+        updateAudioUI(false, "播報異常", "可再次點擊嘗試重播");
+        resetAllStationButtons();
+      };
+
+      synth.speak(utterance);
+    }
+
+    // Toggle Station Audio
+    function toggleStationAudio(stationId) {
+      const station = STATIONS_DATA.find(s => s.id === stationId);
+      if (!station) return;
+
+      if (isPlaying && currentActiveStationId === stationId) {
+        stopAllAudio();
+        return;
+      }
+
+      stopAllAudio();
+      currentActiveStationId = stationId;
+
+      const btn = document.getElementById(`audio-btn-${stationId}`);
+      if (btn) {
+        btn.innerHTML = `<i class="fa-solid fa-pause text-[11px]"></i><span>暫停</span>`;
+        btn.classList.add('bg-amber-600', 'text-white');
+      }
+
+      speakText(
+        station.audioText,
+        `解說：${station.name}`,
+        `${station.transitName} · ${station.altitude}`,
+        () => {
+          currentActiveStationId = null;
+        }
+      );
+    }
+
+    // Play All Tour Intro
+    btnPlayAllIntro.addEventListener('click', () => {
+      if (isPlaying && currentActiveStationId === 'ALL') {
+        stopAllAudio();
+        return;
+      }
+      stopAllAudio();
+      currentActiveStationId = 'ALL';
+      speakText(
+        FULL_TOUR_TEXT,
+        "全線穿越行前概要",
+        "09/27 扇澤 ➔ 立山站 全景概覽",
+        () => {
+          currentActiveStationId = null;
+        }
+      );
+    });
+
+    let currentModalStationId = null;
+
+    function openModal(stationId) {
+      const station = STATIONS_DATA.find(s => s.id === stationId);
+      if (!station) return;
+      currentModalStationId = stationId;
+
+      document.getElementById('modalNumberBadge').textContent = station.step;
+      document.getElementById('modalTitle').textContent = station.name;
+      document.getElementById('modalSubtitle').textContent = station.highlightTag;
+      document.getElementById('modalTime').textContent = station.time;
+      document.getElementById('modalAltitude').textContent = station.altitude;
+      document.getElementById('modalTransit').textContent = station.transitName;
+      document.getElementById('modalHighlights').textContent = station.highlights;
+      document.getElementById('modalDescription').textContent = station.description;
+      document.getElementById('modalTips').textContent = station.tips;
+
+      // Update modal audio button text state
+      if (isPlaying && currentActiveStationId === stationId) {
+        document.getElementById('modalAudioText').textContent = '暫停語音導覽';
+        document.getElementById('modalAudioIcon').className = 'fa-solid fa-pause';
+      } else {
+        document.getElementById('modalAudioText').textContent = '聆聽此站語音導覽';
+        document.getElementById('modalAudioIcon').className = 'fa-solid fa-volume-high';
+      }
+
+      const modal = document.getElementById('detailModal');
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('detailModal');
+      modal.classList.add('hidden');
+      currentModalStationId = null;
+    }
+
+    function triggerModalAudio() {
+      if (currentModalStationId) {
+        toggleStationAudio(currentModalStationId);
+        if (isPlaying && currentActiveStationId === currentModalStationId) {
+          document.getElementById('modalAudioText').textContent = '暫停語音導覽';
+          document.getElementById('modalAudioIcon').className = 'fa-solid fa-pause';
+        } else {
+          document.getElementById('modalAudioText').textContent = '聆聽此站語音導覽';
+          document.getElementById('modalAudioIcon').className = 'fa-solid fa-volume-high';
+        }
+      }
+    }
+
+    // Fallback notification banner (no alert)
+    function alertFallbackMsg(msg) {
+      audioStatusTitle.textContent = "提示通知";
+      audioStatusDesc.textContent = msg;
+    }
+
+    // Modal background close
+    document.getElementById('detailModal').addEventListener('click', (e) => {
+      if (e.target.id === 'detailModal') {
+        closeModal();
+      }
+    });
+
+    // Initialize upon window load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTimeline();
+      calculateCurrency();
+    });
+
+    // Cleanup voice synthesis when leaving page
+    window.addEventListener('beforeunload', () => {
+      if (synth) synth.cancel();
+    });
+  </script>
+</body>
+</html>
